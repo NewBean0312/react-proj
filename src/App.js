@@ -8,7 +8,9 @@ import NoRecord from "./NoRecord"
 import "./App.css" ;
 
 function App() {
-  const arr = [<li>내용 1</li>, <li>내용 2</li>, <li>내용 3</li>];
+  const nums = [1, 2, 3, 4, 5, 6, 7, 8];
+  const arr = nums.map((el) => <li>내용 {el}</li>)
+  // const arr = [<li>내용 1</li>, <li>내용 2</li>, <li>내용 3</li>];
 
   return (
     <>
