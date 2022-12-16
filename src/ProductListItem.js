@@ -1,9 +1,9 @@
 import React, {useState} from "react"
 
-function ProductListItem() {
-  const imgNo = 1;
-  const productName = 'MAC BOOK AIR';
-  const productPriceFormatted = '4,340,000';
+function ProductListItem(props) {
+  const imgNo = props.imgNo;
+  const productName = props.name;
+  const productPriceFormatted = props.productPriceFormatted;
 
   return (
     <>
