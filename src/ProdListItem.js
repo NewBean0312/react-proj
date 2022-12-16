@@ -3,10 +3,10 @@ import React, {useState} from "react"
 function ProdListItem({imgNo, name, price}) {
   return (
     <>
-      <div>
+      <div className="flex flex-col gap-[10px]">
         <img src={`https://picsum.photos/id/${imgNo}/400/400`} />
-        <div> {name}</div>
-        <div>{price}</div>
+        <div className="text-center font-bold"> {name}</div>
+        <div className="after:content-['원'] text-center">{price}</div>
       </div>
     </>
   );
