@@ -1,9 +1,17 @@
 import React, {useState} from "react"
 
-function ProductListItem(props) {
-  const imgNo = props.imgNo;
-  const productName = props.name;
-  const productPriceFormatted = props.productPriceFormatted;
+function ProductListItem({imgNo, name: productName, productPriceFormatted}) {
+  // 방법 1
+  // const imgNo = props.imgNo;
+  // const productName = props.name;
+  // const productPriceFormatted = props.productPriceFormatted;
+
+  // 방법 2
+  // const {imgNo, name, productPriceFormatted} = props;
+  // const productName = name;
+
+  // 방법 3
+  // const {imgNo, name: productName, productPriceFormatted} = props;
 
   return (
     <>
