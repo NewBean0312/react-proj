@@ -22,9 +22,9 @@ function NoRecord() {
   return (
     <>
       <h1>숫자기록</h1>
-      <form>
+      <form onSubmit={(e) => {e.preventDefault(); saveNo()}}>
         <input type="number" value={no} onChange={(e) => setNo(e.target.valueAsNumber)} className="input w-full max-w-xs" />
-        <button type="submit" onClick={saveNo} className="btn btn-outline">기록</button>
+        <button type="submit" className="btn btn-outline">기록</button>
       </form>
       <hr />
       <h1>기록된 숫자 v1 : {recordNos.join(',')}</h1>
