@@ -3,7 +3,18 @@ import React, { useState, useRef } from "react";
 function RefEx() {
   const noInputRef = useRef(null);
   const [no, setNo] = useState("");
-  const [recordedNos, setRecordedNos] = useState([5, 10, 15, 5, 20, 25, 5, 30]);
+
+  const [recordedNos, setRecordedNos] = useState([
+    5,
+    10,
+    15,
+    20,
+    5,
+    25,
+    5,
+    30,
+    5
+  ]);
 
   const saveNo = () => {
     if (no === "") {
@@ -13,22 +24,12 @@ function RefEx() {
 
     setRecordedNos([...recordedNos, no]);
     setNo("");
+    noInputRef.current.focus();
   };
   
-  const removeNo5 = () => {
-    const newRevorededNos = recordedNos.filter((el) => el != 5);
-    setRecordedNos(newRevorededNos);
-  }
-
-  const removeFirst = () => {
-    const newRevorededNos = recordedNos.filter((el, index) => index != 0);
-    setRecordedNos(newRevorededNos);
-  }
-
-  const removeLast = () => {
-    setRecordedNos(
-      recordedNos.filter((el, index) => index != recordedNos.length - 1)
-    );
+  const removeNo = (index) => {
+    const newRecordedNos = recordedNos.filter((_, _index) => _index != index);
+    setRecordedNos(newRecordedNos);
   };
 
   return (
@@ -41,11 +42,13 @@ function RefEx() {
       >
         <input
           type="number"
+          ref={noInputRef}
           value={no}
           onChange={(e) => setNo(e.target.valueAsNumber)}
         />
         <button type="submit">기록</button>
       </form>
+
       <hr />
 
       <h1>기록된 숫자</h1>
@@ -57,9 +60,10 @@ function RefEx() {
 
       <hr />
 
-      <button onClick={removeNo5}>숫자 5 삭제</button>
-      <button onClick={removeFirst}>처음 숫자 삭제</button>
-      <button onClick={removeLast}>마지막 숫자 삭제</button>
+      <button onClick={() => removeNo(0)}>index 0 삭제</button>
+      <button onClick={() => removeNo(1)}>index 1 삭제</button>
+      <button onClick={() => removeNo(2)}>index 2 삭제</button>
+      <button onClick={() => removeNo(3)}>index 3 삭제</button>
     </>
   );
 }
