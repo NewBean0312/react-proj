@@ -1,38 +1,60 @@
 import React, { useState, useRef } from "react";
 
 function RefEx() {
-  const formInputNoRef = useRef(null);
-  const [no, setNo] = useState('');
+  const noInputRef = useRef(null);
+  const [no, setNo] = useState("");
 
-  const notice = () => {
-    formInputNoRef.current.focus();
+  const [recordedNos, setRecordedNos] = useState([10, 20, 30]);
 
-    if (!no) {
-      alert('숫자를 입력해주세요.');
+  const saveNo = () => {
+    if (no === "") {
+      alert("숫자를 입력해주세요.");
       return;
     }
 
-    alert(`당신이 입력한 숫자는 ${no} 입니다.`);
-    setNo('');
+    setRecordedNos([...recordedNos, no]);
+    setNo("");
+    noInputRef.current.focus();
   };
+
+  //const li = [1, 2, 3].map((el, index) => <li key={index}>{el}</li>);
+  const li = recordedNos.map((el, index) => <li key={index}>{el}</li>);
 
   return (
     <>
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          notice();
+          saveNo();
         }}
       >
-        <input 
-          ref={formInputNoRef} 
-          type="text" 
-          placeholder="숫자" 
-          value={no} 
-          onChange={(e) => setNo(e.target.value)} 
+        <input
+          ref={noInputRef}
+          type="number"
+          value={no}
+          onChange={(e) => setNo(e.target.valueAsNumber)}
         />
-        <button>실행</button>
+        <button type="submit">기록</button>
       </form>
+
+      <hr />
+
+      <h1>기록된 숫자 v1</h1>
+      {recordedNos.join(",")}
+
+      <hr />
+
+      <h1>기록된 숫자 v2</h1>
+      <ul>{li}</ul>
+
+      <hr />
+
+      <h1>기록된 숫자 v2-2</h1>
+      <ul>
+        {recordedNos.map((el, index) => (
+          <li key={index}>{el}</li>
+        ))}
+      </ul>
     </>
   );
 }
