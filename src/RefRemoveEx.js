@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 
-function RefModifyEx() {
+function RefRemoveEx() {
   const noInputRef = useRef(null);
   const [no, setNo] = useState("");
 
@@ -21,11 +21,6 @@ function RefModifyEx() {
 
   const removeNo = (index) => {
     const newRecordedNos = recordedNos.filter((_, _index) => _index != index);
-    setRecordedNos(newRecordedNos);
-  };
-
-  const modifyNo = (index, newNo) => {
-    const newRecordedNos = recordedNos.map((el, _index) => _index == index ? newNo : el);
     setRecordedNos(newRecordedNos);
   };
 
@@ -55,9 +50,6 @@ function RefModifyEx() {
             <span style={{ width: 70, display: "inline-block" }}>{el}</span>
             <span style={{ width: 70, display: "inline-block" }}>{index}</span>
             <button onClick={() => removeNo(index)}>삭제</button>
-            <button onClick={() => modifyNo(index, el + 1)}>+1</button>
-            <button onClick={() => modifyNo(index, el - 1)}>-1</button>
-            <button onClick={() => modifyNo(index, el * 2)}>*2</button>
           </li>
         ))}
       </ul>
@@ -65,4 +57,4 @@ function RefModifyEx() {
   );
 }
 
-export default RefModifyEx;
+export default RefRemoveEx;
