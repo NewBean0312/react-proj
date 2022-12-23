@@ -5,15 +5,7 @@ function RefEx() {
   const [no, setNo] = useState("");
 
   const [recordedNos, setRecordedNos] = useState([
-    5,
-    10,
-    15,
-    20,
-    5,
-    25,
-    5,
-    30,
-    5
+    5, 10, 15, 20, 5, 25, 5, 30, 5,
   ]);
 
   const saveNo = () => {
@@ -26,7 +18,7 @@ function RefEx() {
     setNo("");
     noInputRef.current.focus();
   };
-  
+
   const removeNo = (index) => {
     const newRecordedNos = recordedNos.filter((_, _index) => _index != index);
     setRecordedNos(newRecordedNos);
@@ -54,16 +46,13 @@ function RefEx() {
       <h1>기록된 숫자</h1>
       <ul>
         {recordedNos.map((el, index) => (
-          <li key={index}>{el}</li>
+          <li key={index}>
+            <span style={{width:70, display:'inline-block'}}>{el}</span>
+            <span style={{width:70, display:'inline-block'}}>{index}</span>
+            <button onClick={() => removeNo(index)}>삭제</button>
+          </li>
         ))}
       </ul>
-
-      <hr />
-
-      <button onClick={() => removeNo(0)}>index 0 삭제</button>
-      <button onClick={() => removeNo(1)}>index 1 삭제</button>
-      <button onClick={() => removeNo(2)}>index 2 삭제</button>
-      <button onClick={() => removeNo(3)}>index 3 삭제</button>
     </>
   );
 }
