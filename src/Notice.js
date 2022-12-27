@@ -1,12 +1,13 @@
-function Alert() {
+function Alert({color:color_, children}) {
+  const color = color_ ?? "red";
   return (
     <>
       <div className="alert alert-info shadow-lg">
-        <div className="text-white">
+        <div className={`text-[${color}]`}>
           <span>
             <i className="fa-solid fa-circle-info"></i>
           </span>
-          <span>New software update available.</span>
+          <span>{children}</span>
         </div>
       </div>
     </>
@@ -16,9 +17,9 @@ function Alert() {
 function Notice() {
   return (
     <>
-      <Alert />
+      <Alert>"안녕" 반가워</Alert>
       <br />
-      <Alert />
+      <Alert color="black">지금은 수업중이야</Alert>
     </>
   );
 }
