@@ -7,6 +7,7 @@ import FormEx from "./FormEx"
 import RefEx from "./RefEx"
 import RefRemoveEx from "./RefRemoveEx"
 import RefModifyEx from "./RefModifyEx"
+import Notice from "./Notice"
 
 import "./App.css" ;
 
@@ -21,8 +22,9 @@ function App() {
       <NoRecord />
       <FormEx />
       <RefEx />
-      <RefRemoveEx /> */}
-      <RefModifyEx />
+      <RefRemoveEx />
+      <RefModifyEx /> */}
+      <Notice />
     </>
   );
 }
