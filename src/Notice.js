@@ -1,12 +1,11 @@
 import { useState } from "react";
 import classnames from "https://cdn.skypack.dev/classnames";
 
-let NotifyOnve__workDone = false;
-
 function NotifyOnce({children}) {
   const [visible, setVisible] = useState(false);
+  const [workDone, setWorkDone] = useState(false);
   
-  if (NotifyOnve__workDone == false) {
+  if (workDone == false) {
     setTimeout(function () {
       setVisible(true);
     }, 1000);
@@ -15,7 +14,7 @@ function NotifyOnce({children}) {
       setVisible(false);
     }, 3000);
 
-    NotifyOnve__workDone = true;
+    setWorkDone(true);
   }
 
   return (
