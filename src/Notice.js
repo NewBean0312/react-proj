@@ -1,14 +1,29 @@
+import { useState } from "react";
 import classnames from "https://cdn.skypack.dev/classnames";
 
+let NotifyOnve__workDone = false;
+
 function NotifyOnce({children}) {
-  setTimeout(function () {}, 1000);
+  const [visible, setVisible] = useState(false);
+  
+  if (NotifyOnve__workDone == false) {
+    setTimeout(function () {
+      setVisible(true);
+    }, 1000);
+  
+    setTimeout(function () {
+      setVisible(false);
+    }, 3000);
+
+    NotifyOnve__workDone = true;
+  }
 
   return (
     <div 
       className={classnames(
         "fixed transition-all right-[10px]",
-        {"top-[-60px]": true},
-        {"top-[10px]": false},
+        {"top-[-60px]": !visible},
+        {"top-[10px]": visible},
       )}
     >
       {children}
@@ -16,7 +31,7 @@ function NotifyOnce({children}) {
   );
 }
 
-function Alert({color:color_, children}) {
+function Alert({color: color_, children}) {
   const color = color_ ?? "red";
   return (
     <>
