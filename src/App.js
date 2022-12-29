@@ -3,28 +3,35 @@ import React, { useState, useEffect, useRef } from "react";
 import "./App.css" ;
 
 let AppCallCount = 0;
+let SubCallCount = 0;
 
-function App() {
-  const inputNameRef = useRef(null);
-  const inputAgeRef = useRef(null);
-  const [no, SetNo] = useState(0);
+function Sub() {
+  SubCallCount++;
+  console.log(`Sub가 ${SubCallCount}번 실행됨!`)
 
-  useEffect(() => {
-    inputNameRef.current.focus();
-  });
+  const [no, setNo] = useState(0);
 
   return (
     <>
-      <input ref={inputNameRef} type="text" placeholder="이름" />
-      <input ref={inputAgeRef} type="number" placeholder="나이" />
-      <button 
-        onClick={() => {
-          SetNo(no + 1);
-          inputAgeRef.current.focus();
-        }}
-      >
-        증가 : {no}
-      </button>
+      <div style={{border: '10px solid blue', padding: 10}}>
+        <button onClick={() => setNo(no + 1)}>버튼 : {no}</button>
+      </div>
+    </>
+  )
+}
+
+function App() {
+  AppCallCount++;
+  console.log(`App이 ${AppCallCount}번 실행됨!`)
+  const [no, setNo] = useState(0);
+
+  return (
+    <>
+      <div style={{border: '10px solid red', padding: 10}}>
+        <button onClick={() => setNo(no + 1)}>버튼 : {no}</button>
+        <hr />
+        <Sub />
+      </div>
     </>
   )
 }
