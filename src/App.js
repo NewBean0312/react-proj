@@ -1,32 +1,19 @@
-import StopWatch from "./StopWatch";
-import NumberCounter from "./NumberCounter"
-import Popup from "./Popup"
-import ProdList from "./ProdList"
-import NoRecord from "./NoRecord"
-import FormEx from "./FormEx"
-import RefEx from "./RefEx"
-import RefRemoveEx from "./RefRemoveEx"
-import RefModifyEx from "./RefModifyEx"
-import Notice from "./Notice"
+import React, { useState, useEffect } from "react";
 
 import "./App.css" ;
 
-function App() {
+let AppCallCount = 0;
 
-  return (
-    <>
-      {/* <StopWatch />
-      <NumberCounter />
-      <Popup />
-      <ProdList className="container mx-auto"/>
-      <NoRecord />
-      <FormEx />
-      <RefEx />
-      <RefRemoveEx />
-      <RefModifyEx /> */}
-      <Notice />
-    </>
-  );
+function App() {
+  useEffect(() => {
+    AppCallCount++;
+    console.log(`App이 ${AppCallCount}번 실행됨!`)
+  }, []);
+
+  const [no, SetNo] = useState(0);
+  return <>
+    <button onClick={() => SetNo(no + 1)}>증가 : {no} </button>
+  </>
 }
 
 export default App;
