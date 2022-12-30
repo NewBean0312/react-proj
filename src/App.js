@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useMemo } from "react";
 
 import "./App.css";
 
@@ -40,12 +40,8 @@ function App() {
 
   const [inputedNo, setInputedNo] = useState(0);
   const [no, setNo] = useState(0);
-  const [primeNumbersCount, setPrimeNumbersCount] = useState(0);
 
-  useEffect(() => {
-    const primeNumbersCount = getPrimeNumbersCount(inputedNo);
-    setPrimeNumbersCount(primeNumbersCount);
-  }, [inputedNo]);
+  const primeNumbersCount = useMemo(() => getPrimeNumbersCount(inputedNo), [inputedNo]);
 
   const onSubmit = (e) => {
     e.preventDefault();
