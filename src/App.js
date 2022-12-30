@@ -39,8 +39,13 @@ function App() {
   console.log(`AppCallCount : ${AppCallCount}`);
 
   const [inputedNo, setInputedNo] = useState(0);
+  const [no, setNo] = useState(0);
+  const [primeNumbersCount, setPrimeNumbersCount] = useState(0);
 
-  const primeNumbersCount = getPrimeNumbersCount(inputedNo);
+  useEffect(() => {
+    const primeNumbersCount = getPrimeNumbersCount(inputedNo);
+    setPrimeNumbersCount(primeNumbersCount);
+  }, [inputedNo]);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -52,6 +57,7 @@ function App() {
     if (form.number.value.length == 0) {
       alert('숫자를 입력해주세요.');
       form.number.focus();
+
       return;
     }
 
@@ -63,6 +69,7 @@ function App() {
 
   return (
     <>
+      <button onClick={() => setNo(no + 1)}>번호 : {no}</button>
       <form onSubmit={onSubmit}>
         <input type="number" name="number" placeholder="숫자를 입력해주세요" />
         <input type="submit" value="확인" />
