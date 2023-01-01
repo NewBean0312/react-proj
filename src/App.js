@@ -33,7 +33,8 @@ function getPrimeNumbersCount(max) {
 }
 
 function PrimeNosCount({max}) {
-  const count = getPrimeNumbersCount(max);
+
+  const count = useMemo(() => getPrimeNumbersCount(max), [max]);
 
   return (
     <div style={{border:'10px solid black', padding:100}}>
