@@ -48,16 +48,19 @@ function App() {
   AppCallCount++;
   console.log(`AppCallCount : ${AppCallCount}`);
 
+  const [no, setNo] = useState(0);
+
   return (
     <>
-    <PrimeNosCount max={100}/>
-    <hr />
-    <PrimeNosCount max={200}/>
-    <hr />
-    <PrimeNosCount max={300}/>
-    <hr />
-    <PrimeNosCount max={1000000}/>
-    <hr />
+      <PrimeNosCount max={100}/>
+      <hr />
+      <PrimeNosCount max={200}/>
+      <hr />
+      <PrimeNosCount max={300}/>
+      <hr />
+      <PrimeNosCount max={1000000}/>
+      <hr />
+      <button onClick={() => setNo(no + 1)}> 버튼 : {no}</button>
     </>
   );
 }
