@@ -24,9 +24,13 @@ function Order() {
     setoptionsCheckeds(newOptionCheckeds);
   };
 
+  const btnAllChecked = optionsCheckeds.every((el) => el);
+
   return (
     <>
       <h1>음식주문</h1>
+      <h2>옵션</h2>
+      <span> {btnAllChecked ? "[v]" : "[ ]"}전체선택</span>
       <ul>
         {options.map((option, index) => (
           <li
