@@ -6,7 +6,7 @@ function Order() {
     "머스타드 소스",
     "홀스래디쉬 소스",
     "스윗어니언 소스",
-    "마라 소스"
+    "마라 소스",
   ];
 
   const [optionsCheckeds, setoptionsCheckeds] = useState([
@@ -14,22 +14,33 @@ function Order() {
     false,
     true,
     true,
-    true
+    true,
   ]);
+
+  const toggleOptionCheck = (index) => {
+    const newOptionCheckeds = optionsCheckeds.map((el, _index) =>
+      _index === index ? !el : el
+    );
+    setoptionsCheckeds(newOptionCheckeds);
+  };
 
   return (
     <>
       <h1>음식주문</h1>
       <ul>
         {options.map((option, index) => (
-          <li key={option}>
+          <li
+            key={option}
+            style={{ userSelect: "none", cursor: "pointer" }}
+            onClick={() => toggleOptionCheck(index)}
+          >
             {optionsCheckeds[index] ? "[v]" : "[ ]"}
             {option}
           </li>
         ))}
       </ul>
     </>
-  )
+  );
 }
 
 export default Order;
