@@ -1,5 +1,60 @@
 import React, { useState, useMemo } from "react";
 
+function OrderMainFood({ setMainFoodCount, mainFoodCount }) {
+  return (
+    <>
+      <h2>메인 (수량 : {mainFoodCount})</h2>
+      <div>
+        <button onClick={() => setMainFoodCount(mainFoodCount + 1)}>
+          증가
+        </button>
+        <button
+          onClick={() =>
+            setMainFoodCount(mainFoodCount == 1 ? 1 : mainFoodCount - 1)
+          }
+        >
+          감소
+        </button>
+      </div>
+    </>
+  );
+}
+
+function OrderOptions({
+  selectedCount,
+  options,
+  toggleAllChecked,
+  btnAllChecked,
+  optionsCheckeds,
+  toggleOptionCheck,
+}) {
+  return (
+    <>
+      <h2>
+        옵션 ({selectedCount} / {options.length})
+      </h2>
+      <span
+        onClick={toggleAllChecked}
+        style={{ userSelect: "none", cursor: "pointer" }}
+      >
+        {btnAllChecked ? "[v]" : "[ ]"}전체선택
+      </span>
+      <ul>
+        {options.map((option, index) => (
+          <li
+            key={option}
+            style={{ userSelect: "none", cursor: "pointer" }}
+            onClick={() => toggleOptionCheck(index)}
+          >
+            {optionsCheckeds[index] ? "[v]" : "[ ]"}
+            {option}
+          </li>
+        ))}
+      </ul>
+    </>
+  );
+}
+
 function Order() {
   const [mainFoodCount, setMainFoodCount] = useState(1);
 
@@ -48,41 +103,18 @@ function Order() {
     <>
       <h1>음식주문</h1>
 
-      <h2>메인 (수량 : {mainFoodCount})</h2>
-      <div>
-        <button onClick={() => setMainFoodCount(mainFoodCount + 1)}>
-          증가
-        </button>
-        <button
-          onClick={() =>
-            setMainFoodCount(mainFoodCount == 1 ? 1 : mainFoodCount - 1)
-          }
-        >
-          감소
-        </button>
-      </div>
-
-      <h2>
-        옵션 ({selectedCount} / {options.length})
-      </h2>
-      <span
-        onClick={toggleAllChecked}
-        style={{ userSelect: "none", cursor: "pointer" }}
-      >
-        {btnAllChecked ? "[v]" : "[ ]"}전체선택
-      </span>
-      <ul>
-        {options.map((option, index) => (
-          <li
-            key={option}
-            style={{ userSelect: "none", cursor: "pointer" }}
-            onClick={() => toggleOptionCheck(index)}
-          >
-            {optionsCheckeds[index] ? "[v]" : "[ ]"}
-            {option}
-          </li>
-        ))}
-      </ul>
+      <OrderMainFood
+        setMainFoodCount={setMainFoodCount}
+        mainFoodCount={mainFoodCount}
+      />
+      <OrderOptions
+        selectedCount={selectedCount}
+        options={options}
+        toggleAllChecked={toggleAllChecked}
+        btnAllChecked={btnAllChecked}
+        optionsCheckeds={optionsCheckeds}
+        toggleOptionCheck={toggleOptionCheck}
+      />
     </>
   );
 }
