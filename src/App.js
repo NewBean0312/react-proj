@@ -17,17 +17,16 @@ function App() {
 
   return (
     <>
-      {ageBands.map((ageBand) => (
-        <label>
-          <input
-            name="ageBand"
-            type="radio"
-            onChange={() => setSelectedBand(ageBand)}
-            checked={ageBand == selectedAgeBand}
-          />
-          {ageBand}
-        </label>
-      ))}
+      <select onChange={(e) => setSelectedBand(e.target.value)}>
+        <option disabled selected>
+          - 나이대역 -
+        </option>
+        {ageBands.map((ageBand) => (
+          <option selected={ageBand == selectedAgeBand} value={ageBand}>
+            {ageBand}
+          </option>
+        ))}
+      </select>
       <hr />
       <div> 현재 값 : {selectedAgeBand}</div>
     </>
