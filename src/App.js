@@ -4,10 +4,14 @@ import "./App.css";
 
 function App() {
   const [todos, setTodos] = useState([]);
+  const [lastTodoId, setLastTodoId] = useState(0);
 
   const addTodo = (newContent) => {
+    const id = lastTodoId + 1;
+    setLastTodoId(id);
+
     const newTodo = {
-      id: 1,
+      id,
       content: newContent,
       regDate: "2023-01-17 12:12:12",
     };
