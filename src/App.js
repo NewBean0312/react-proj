@@ -45,7 +45,7 @@ function TodoApp({ todosState }) {
       <ul>
         {todosState.todos.map((todo, index) => (
           <li key={index}>
-            {todo.id} {todo.content} {todo.regDate}
+            {todo.id} {dateToStr(todo.regDate)} {todo.content}
           </li>
         ))}
       </ul>
@@ -63,7 +63,7 @@ function useTodosState() {
     const newTodo = {
       id,
       content: newContent,
-      regDate: "2023-01-17 12:12:12",
+      regDate: new Date(),
     };
 
     const newTodos = [...todos, newTodo];
@@ -97,6 +97,29 @@ function App() {
     <>
       <TodoApp todosState={todosState} />
     </>
+  );
+}
+
+// 유틸리티
+
+// 날짜 객체 입력 받아서 문장(yyyy-mm-dd hh:mm:ss)으로 반환
+function dateToStr(d) {
+  const pad = (n) => {
+    return n < 10 ? "0" + n : n;
+  }
+
+  return (
+    d.getFullYear() +
+    "-" +
+    pad(d.getMonth() + 1) +
+    "-" +
+    pad(d.getDate()) +
+    " " +
+    pad(d.getHours()) +
+    ":" +
+    pad(d.getMinutes()) +
+    ":" +
+    pad(d.getSeconds())
   );
 }
 
