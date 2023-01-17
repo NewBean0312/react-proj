@@ -8,16 +8,24 @@ function App() {
     setTodos(newTodos);
   }
 
-  const onClick = () => {
-    // const newTodos = [...todos, todos.length + 1];
-    // setTodos(newTodos);
+  const removeTodo = (index) => {
+    const newTodos = todos.filter((_, _index) => _index != index);
+    setTodos(newTodos);
+  }
 
-    addTodo(todos.length + 1)
+  const onAddBtnClick = () => {
+    addTodo(todos.length + 1);
+  };
+
+  const onRemoveBtnClick = () => {
+    removeTodo(1);
   };
 
   return (
     <>
-      <button onClick={onClick}>{JSON.stringify(todos)}</button>
+      <div>{JSON.stringify(todos)}</div>
+      <button onClick={onAddBtnClick}>추가</button>
+      <button onClick={onRemoveBtnClick}>삭제</button>
     </>
   );
 }
