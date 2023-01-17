@@ -31,7 +31,7 @@ function TodoApp({ addTodo, removeTodo, modifyTodo, todos }) {
   );
 }
 
-function App() {
+function useTodosState() {
   const [todos, setTodos] = useState([]);
   const lastTodoIdRef = useRef(0);
 
@@ -60,6 +60,16 @@ function App() {
     setTodos(newTodos);
   };
 
+  return {
+    todos,
+    addTodo,
+    removeTodo,
+    modifyTodo,
+  };
+}
+
+function App() {
+  const {addTodo, removeTodo, modifyTodo, todos} = useTodosState();
   return (
     <>
       <TodoApp
