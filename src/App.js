@@ -2,24 +2,45 @@ import React, { useState, useRef } from "react";
 
 import "./App.css";
 
-function TodoApp({ todosState }) {
-  const onBtnAddTodoClick = () => {
-    todosState.addTodo("안녕");
-  };
+function NewTodoFrom({ todosState }) {
+  const onSubmit = (e) => {
+    e.preventDefault();
 
-  const onBtnDeleteTodoClick = () => {
-    todosState.removeTodo(1);
-  };
+    const form = e.target;
 
-  const onBtnModifyTodoClick = () => {
-    todosState.modifyTodo(1, "ㅋㅋㅋ");
+    form.content.value = form.content.value.trim();
+
+    if (form.content.value.length == 0) {
+      alert("할 일을 입력해주세요.");
+      form.content.focus();
+
+      return;
+    }
+
+    todosState.addTodo(form.content.value);
+    form.content.value = "";
+    form.content.focus();
   };
-  
   return (
     <>
-      <button onClick={onBtnAddTodoClick}>추가</button>
-      <button onClick={onBtnDeleteTodoClick}>삭제</button>
-      <button onClick={onBtnModifyTodoClick}>수정</button>
+      <form onSubmit={onSubmit}>
+        <input
+          autoComplete="off"
+          name="content"
+          type="text"
+          placeholder="할 일을 입력해주세요."
+        />
+        <input type="submit" value="추가" />
+        <input type="reset" value="취소" />
+      </form>
+    </>
+  );
+}
+
+function TodoApp({ todosState }) {
+  return (
+    <>
+      <NewTodoFrom todosState={todosState} />
       <hr />
       <ul>
         {todosState.todos.map((todo, index) => (
