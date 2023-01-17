@@ -2,6 +2,29 @@ import React, { useState, useRef } from "react";
 
 import "./App.css";
 
+function TodoApp({
+  onBtnAddTodoClick,
+  onBtnDeleteTodoClick,
+  onBtnModifyTodoClick,
+  todos,
+}) {
+  return (
+    <>
+      <button onClick={onBtnAddTodoClick}>추가</button>
+      <button onClick={onBtnDeleteTodoClick}>삭제</button>
+      <button onClick={onBtnModifyTodoClick}>수정</button>
+      <hr />
+      <ul>
+        {todos.map((todo, index) => (
+          <li key={index}>
+            {todo.id} {todo.content} {todo.regDate}
+          </li>
+        ))}
+      </ul>
+    </>
+  );
+}
+
 function App() {
   const [todos, setTodos] = useState([]);
   const lastTodoIdRef = useRef(0);
@@ -45,17 +68,12 @@ function App() {
 
   return (
     <>
-      <button onClick={onBtnAddTodoClick}>추가</button>
-      <button onClick={onBtnDeleteTodoClick}>삭제</button>
-      <button onClick={onBtnModifyTodoClick}>수정</button>
-      <hr />
-      <ul>
-        {todos.map((todo, index) => (
-          <li key={index}>
-            {todo.id} {todo.content} {todo.regDate}
-          </li>
-        ))}
-      </ul>
+      <TodoApp
+        onBtnAddTodoClick={onBtnAddTodoClick}
+        onBtnDeleteTodoClick={onBtnDeleteTodoClick}
+        onBtnModifyTodoClick={onBtnModifyTodoClick}
+        todos={todos}
+      />
     </>
   );
 }
