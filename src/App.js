@@ -2,12 +2,18 @@ import React, { useState, useRef } from "react";
 
 import "./App.css";
 
-function TodoApp({
-  onBtnAddTodoClick,
-  onBtnDeleteTodoClick,
-  onBtnModifyTodoClick,
-  todos,
-}) {
+function TodoApp({ addTodo, removeTodo, modifyTodo, todos }) {
+  const onBtnAddTodoClick = () => {
+    addTodo("안녕");
+  };
+
+  const onBtnDeleteTodoClick = () => {
+    removeTodo(1);
+  };
+
+  const onBtnModifyTodoClick = () => {
+    modifyTodo(1, "ㅋㅋㅋ");
+  };
   return (
     <>
       <button onClick={onBtnAddTodoClick}>추가</button>
@@ -54,24 +60,12 @@ function App() {
     setTodos(newTodos);
   };
 
-  const onBtnAddTodoClick = () => {
-    addTodo("안녕");
-  };
-
-  const onBtnDeleteTodoClick = () => {
-    removeTodo(1);
-  };
-
-  const onBtnModifyTodoClick = () => {
-    modifyTodo(1, "ㅋㅋㅋ");
-  };
-
   return (
     <>
       <TodoApp
-        onBtnAddTodoClick={onBtnAddTodoClick}
-        onBtnDeleteTodoClick={onBtnDeleteTodoClick}
-        onBtnModifyTodoClick={onBtnModifyTodoClick}
+        addTodo={addTodo}
+        removeTodo={removeTodo}
+        modifyTodo={modifyTodo}
         todos={todos}
       />
     </>
