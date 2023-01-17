@@ -19,6 +19,13 @@ function App() {
     setTodos(newTodos);
   };
 
+  const modifyTodo = (index, newContent) => {
+    const newTodos = todos.map((todo, _index) =>
+      _index != index ? todo : { ...todo, content: newContent }
+    );
+    setTodos(newTodos);
+  };
+
   const removeTodo = (index) => {
     const newTodos = todos.filter((_, _index) => _index != index);
     setTodos(newTodos);
@@ -32,10 +39,15 @@ function App() {
     removeTodo(1);
   };
 
+  const onBtnModifyTodoClick = () => {
+    modifyTodo(1, "ㅋㅋㅋ");
+  };
+
   return (
     <>
       <button onClick={onBtnAddTodoClick}>추가</button>
       <button onClick={onBtnDeleteTodoClick}>삭제</button>
+      <button onClick={onBtnModifyTodoClick}>수정</button>
       <hr />
       <ul>
         {todos.map((todo, index) => (
