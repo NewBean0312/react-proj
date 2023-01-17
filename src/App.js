@@ -2,7 +2,8 @@ import React, { useState, useRef } from "react";
 
 import "./App.css";
 
-function TodoApp({ addTodo, removeTodo, modifyTodo, todos }) {
+function TodoApp({ todosState }) {
+  const { addTodo, removeTodo, modifyTodo, todos } = todosState;
   const onBtnAddTodoClick = () => {
     addTodo("안녕");
   };
@@ -69,15 +70,11 @@ function useTodosState() {
 }
 
 function App() {
-  const {addTodo, removeTodo, modifyTodo, todos} = useTodosState();
+  const todosState = useTodosState();
+
   return (
     <>
-      <TodoApp
-        addTodo={addTodo}
-        removeTodo={removeTodo}
-        modifyTodo={modifyTodo}
-        todos={todos}
-      />
+      <TodoApp todosState={todosState} />
     </>
   );
 }
