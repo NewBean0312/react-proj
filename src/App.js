@@ -2,6 +2,26 @@ import React, { useState, useRef } from "react";
 
 import "./App.css";
 
+function TodoListItem({ todo, index }) {
+  return (
+    <>
+      <li key={index}>
+        {todo.id} {todo.regDate} {todo.content}
+      </li>
+    </>
+  );
+}
+
+function TodoList({ todosState }) {
+  return (
+    <ul>
+      {todosState.todos.map((todo, index) => (
+        <TodoListItem key={todo.id} todo={todo} index={index} />
+      ))}
+    </ul>
+  );
+}
+
 function NewTodoFrom({ todosState }) {
   const onSubmit = (e) => {
     e.preventDefault();
@@ -42,13 +62,7 @@ function TodoApp({ todosState }) {
     <>
       <NewTodoFrom todosState={todosState} />
       <hr />
-      <ul>
-        {todosState.todos.map((todo, index) => (
-          <li key={index}>
-            {todo.id} {todo.regDate} {todo.content}
-          </li>
-        ))}
-      </ul>
+      <TodoList todosState={todosState} />
     </>
   );
 }
@@ -106,7 +120,7 @@ function App() {
 function dateToStr(d) {
   const pad = (n) => {
     return n < 10 ? "0" + n : n;
-  }
+  };
 
   return (
     d.getFullYear() +
