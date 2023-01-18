@@ -2,11 +2,21 @@ import React, { useState, useRef } from "react";
 
 import "./App.css";
 
-function TodoListItem({ todo, index }) {
+function TodoListItem({ todosState, todo, index }) {
+  const removeTodo = () => {
+    todosState.removeTodo(index);
+  }
+
   return (
     <>
-      <li key={index}>
-        {todo.id} {todo.regDate} {todo.content}
+      <li>
+        {todo.id}
+        &nbsp;
+        {todo.regDate}
+        &nbsp;
+        {todo.content}
+        &nbsp;
+        <button onClick={removeTodo}>삭제</button>
       </li>
     </>
   );
@@ -16,7 +26,12 @@ function TodoList({ todosState }) {
   return (
     <ul>
       {todosState.todos.map((todo, index) => (
-        <TodoListItem key={todo.id} todo={todo} index={index} />
+        <TodoListItem
+          todosState={todosState}
+          key={todo.id}
+          todo={todo}
+          index={index}
+        />
       ))}
     </ul>
   );
