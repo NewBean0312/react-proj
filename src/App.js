@@ -3,9 +3,15 @@ import React, { useState, useRef } from "react";
 import "./App.css";
 
 function TodoListItem({ todosState, todo, index }) {
+  const [editMode, setEditMode] = useState(false);
+
   const removeTodo = () => {
     todosState.removeTodo(index);
-  }
+  };
+
+  const showTodo = () => {
+    setEditMode(true);
+  };
 
   return (
     <>
@@ -14,8 +20,14 @@ function TodoListItem({ todosState, todo, index }) {
         &nbsp;
         {todo.regDate}
         &nbsp;
-        {todo.content}
-        &nbsp;
+        {editMode || (
+          <>
+            {todo.content}
+            &nbsp;
+            <button onClick={showTodo}>수정</button>
+          </>
+        )}
+        {editMode && <>수정모드</>}
         <button onClick={removeTodo}>삭제</button>
       </li>
     </>
