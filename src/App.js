@@ -45,7 +45,7 @@ function TodoApp({ todosState }) {
       <ul>
         {todosState.todos.map((todo, index) => (
           <li key={index}>
-            {todo.id} {dateToStr(todo.regDate)} {todo.content}
+            {todo.id} {todo.regDate} {todo.content}
           </li>
         ))}
       </ul>
@@ -63,7 +63,7 @@ function useTodosState() {
     const newTodo = {
       id,
       content: newContent,
-      regDate: new Date(),
+      regDate: dateToStr(new Date()),
     };
 
     const newTodos = [...todos, newTodo];
