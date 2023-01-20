@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { AppBar, Toolbar } from "@mui/material";
+import { AppBar, Button, TextField, Toolbar } from "@mui/material";
 
 function useTodosState() {
   const [todos, setTodos] = useState([]);
@@ -69,15 +69,15 @@ function App() {
           <div className="flex-1"></div>
         </Toolbar>
       </AppBar>
-      <form onSubmit={onSubmit}>
-        <input
+      <form onSubmit={onSubmit} className="flex flex-col mt-4 px-4 gap-2">
+        <TextField
           autoComplete="off"
           name="content"
           type="text"
-          placeholder="할일을 입력해주세요."
+          label="할일을 입력해주세요."
+          variant="outlined"
         />
-        <input type="submit" value="추가" />
-        <input type="reset" value="취소" />
+        <Button variant="contained">추가</Button>
       </form>
       {todosState.todos.length}
     </>
