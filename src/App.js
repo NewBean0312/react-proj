@@ -42,7 +42,7 @@ function App() {
 
   useEffect(
     () => (
-      todosState.addTodo("운동"),
+      todosState.addTodo("운동 \n스트레칭 \n유산소 \n런지 \n스쿼트"),
       todosState.addTodo("요리"),
       todosState.addTodo("공부")
     ),
@@ -79,6 +79,9 @@ function App() {
       </AppBar>
       <form onSubmit={onSubmit} className="flex flex-col mt-4 px-4 gap-2">
         <TextField
+          multiline
+          minRows={3}
+          maxRows={10}
           autoComplete="off"
           name="content"
           type="text"
@@ -95,7 +98,9 @@ function App() {
                 <Chip label={`번호 : ${todo.id}`} variant="outlined" />
                 <Chip label={todo.regDate} variant="outlined" color="primary" />
               </div>
-              <div className="mt-4 p-10 shadow rounded-[20px]">{todo.content}</div>
+              <div className="mt-4 p-10 shadow rounded-[20px] whitespace-pre-wrap leading-relaxed">
+                {todo.content}
+              </div>
             </li>
           ))}
         </ul>
