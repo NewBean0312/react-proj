@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { AppBar, Button, TextField, Toolbar } from "@mui/material";
+import { AppBar, Button, TextField, Toolbar, Chip } from "@mui/material";
 
 function useTodosState() {
   const [todos, setTodos] = useState([]);
@@ -92,8 +92,8 @@ function App() {
           {todosState.todos.map((todo) => (
             <li key={todo.id} className="mt-10">
               <div className="flex gap-2">
-                <span>번호 : {todo.id}</span>
-                <span>날짜 : {todo.regDate}</span>
+                <Chip label={`번호 : ${todo.id}`} variant="outlined" />
+                <Chip label={todo.regDate} variant="outlined" color="primary" />
               </div>
               <div>{todo.content}</div>
             </li>
