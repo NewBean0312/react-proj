@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { AppBar, Button, TextField, Toolbar, Chip } from "@mui/material";
+import { AppBar, Button, TextField, Toolbar, Chip, Box } from "@mui/material";
 
 function useTodosState() {
   const [todos, setTodos] = useState([]);
@@ -88,7 +88,9 @@ function App() {
           label="할일을 입력해주세요."
           variant="outlined"
         />
-        <Button type="submit" variant="contained">추가</Button>
+        <Button type="submit" variant="contained">
+          추가
+        </Button>
       </form>
       <div className="mt-4 px-4">
         <ul>
@@ -108,7 +110,13 @@ function App() {
                 />
               </div>
               <div className="mt-4 p-10 shadow rounded-[20px] whitespace-pre-wrap leading-relaxed">
-                {todo.content}
+                <Box
+                  sx={{
+                    color: "primary.main",
+                  }}
+                >
+                  {todo.content}
+                </Box>
               </div>
             </li>
           ))}
