@@ -95,8 +95,17 @@ function App() {
           {todosState.todos.map((todo) => (
             <li key={todo.id} className="mt-10">
               <div className="flex gap-2">
-                <Chip label={`번호 : ${todo.id}`} variant="outlined" />
-                <Chip label={todo.regDate} variant="outlined" color="primary" />
+                <Chip
+                  label={`번호 : ${todo.id}`}
+                  variant="outlined"
+                  className="!pt-1"
+                />
+                <Chip
+                  label={todo.regDate}
+                  variant="outlined"
+                  color="primary"
+                  className="!pt-1"
+                />
               </div>
               <div className="mt-4 p-10 shadow rounded-[20px] whitespace-pre-wrap leading-relaxed">
                 {todo.content}
