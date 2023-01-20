@@ -14,7 +14,7 @@ function useTodosState() {
       regDate: dateToStr(new Date()),
     };
 
-    setTodos((todos) => [...todos, newTodo]);
+    setTodos((todos) => [newTodo, ...todos]);
   };
 
   const modifyTodo = (index, newContent) => {
@@ -88,7 +88,7 @@ function App() {
           label="할일을 입력해주세요."
           variant="outlined"
         />
-        <Button variant="contained">추가</Button>
+        <Button type="submit" variant="contained">추가</Button>
       </form>
       <div className="mt-4 px-4">
         <ul>
