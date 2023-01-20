@@ -79,7 +79,19 @@ function App() {
         />
         <Button variant="contained">추가</Button>
       </form>
-      {todosState.todos.length}
+      <div className="mt-4 px-4">
+        <ul>
+          {todosState.todos.map((todo) => (
+            <li key={todo.id} className="mt-10">
+              <div className="flex gap-2">
+                <span>번호 : {todo.id}</span>
+                <span>날짜 : {todo.regDate}</span>
+              </div>
+              <div>{todo.content}</div>
+            </li>
+          ))}
+        </ul>
+      </div>
     </>
   );
 }
