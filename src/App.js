@@ -95,7 +95,7 @@ function App() {
                 <Chip label={`번호 : ${todo.id}`} variant="outlined" />
                 <Chip label={todo.regDate} variant="outlined" color="primary" />
               </div>
-              <div>{todo.content}</div>
+              <div className="mt-4 p-10 shadow rounded-[20px]">{todo.content}</div>
             </li>
           ))}
         </ul>
