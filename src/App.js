@@ -138,7 +138,7 @@ function App({ theme }) {
                 />
               </div>
               <div className="flex shadow mt-4 rounded-[20px]">
-                <Button className="bg-red-500 w-[130px] flex-shrink-0 !items-start">
+                <Button className="bg-red-500 w-[130px] flex-shrink-0 !items-start !rounded-[20px_0_0_20px]">
                   <span>체크박스</span>
                 </Button>
                 <div className="bg-blue-500 whitespace-pre-wrap leading-relaxed hover:text-[color:var(--mui-color-primary-main)] flex-grow ">
