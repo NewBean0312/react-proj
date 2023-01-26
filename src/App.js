@@ -99,7 +99,7 @@ function NewTodoFrom({ todosState }) {
   );
 }
 
-function TodoListItem({ todo, index }) {
+function TodoListItem({ todo, index, setOptionDrawerTodoId }) {
   return (
     <>
       <li key={todo.id} className="mt-10">
@@ -142,6 +142,7 @@ function TodoListItem({ todo, index }) {
             {todo.content}
           </div>
           <Button
+            onClick={() => setOptionDrawerTodoId(todo.id)}
             className="w-[130px] flex-shrink-0 !items-start !rounded-[0_20px_20px_0]"
             color="inherit"
           >
@@ -156,15 +157,21 @@ function TodoListItem({ todo, index }) {
 }
 
 function TodoList({ todosState }) {
+  const [optionDrawerTodoId, setOptionDrawerTodoId] = useState(null);
+
   return (
     <>
-      <Drawer anchor={"bottom"} open={false} onClose={() => {}}>
-        <div className="p-10">옵션 드로어</div>
+      <Drawer
+        anchor={"bottom"}
+        open={optionDrawerTodoId !== null}
+        onClose={() => setOptionDrawerTodoId(null)}
+      >
+        <div className="p-10">{optionDrawerTodoId}번 옵션 드로어</div>
       </Drawer>
       <div className="mt-4 px-4">
         <ul>
           {todosState.todos.map((todo, index) => (
-            <TodoListItem key={todo.id} todo={todo} index={index}/>
+            <TodoListItem key={todo.id} todo={todo} index={index} setOptionDrawerTodoId={setOptionDrawerTodoId}/>
           ))}
         </ul>
       </div>
