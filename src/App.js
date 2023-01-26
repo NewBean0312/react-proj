@@ -160,6 +160,7 @@ function App({ theme }) {
                     <i class="fa-solid fa-check"></i>
                   </span>
                 </Button>
+                <div className="flex-shrink-0 w-[2px] bg-[#b0b0b0] my-5 mr-5"></div>
                 <div className="whitespace-pre-wrap leading-relaxed hover:text-[color:var(--mui-color-primary-main)] flex-grow my-5 flex items-center">
                   {todo.content}
                 </div>
