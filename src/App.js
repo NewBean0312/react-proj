@@ -145,8 +145,9 @@ function App({ theme }) {
                 >
                   <span
                     className={classNames(
-                      "bg-red-300",
                       "text-3xl",
+                      "flex items-center",
+                      "h-[50px]",
                       {
                         "text-[color:var(--mui-color-primary-main)]":
                           index % 2 == 0,
@@ -163,10 +164,10 @@ function App({ theme }) {
                   {todo.content}
                 </div>
                 <Button
-                  className="bg-red-300 w-[130px] flex-shrink-0 !rounded-[0_20px_20px_0]"
+                  className="w-[130px] flex-shrink-0 !items-start !rounded-[0_20px_20px_0]"
                   color="inherit"
                 >
-                  <span className="bg-red-300 text-xl text-[#b0b0b0]">
+                  <span className="text-xl text-[#b0b0b0] flex items-center h-[50px]">
                     <i class="fa-solid fa-ellipsis"></i>
                   </span>
                 </Button>
