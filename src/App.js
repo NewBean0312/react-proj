@@ -160,7 +160,12 @@ function App({ theme }) {
                 <div className="bg-blue-500 whitespace-pre-wrap leading-relaxed hover:text-[color:var(--mui-color-primary-main)] flex-grow ">
                   {todo.content}
                 </div>
-                <div className="bg-red-300 w-[130px] flex-shrink-0">후</div>
+                <Button className="bg-red-300 w-[130px] flex-shrink-0" color="inherit"
+                >
+                  <span className="text-xl text-[#b0b0b0]">
+                    <i class="fa-solid fa-ellipsis"></i>
+                  </span>
+                </Button>
               </div>
             </li>
           ))}
