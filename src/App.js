@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useMemo } from "react";
 import {
   AppBar,
   Button,
@@ -99,7 +99,7 @@ function NewTodoFrom({ todosState }) {
   );
 }
 
-function TodoListItem({ todo, index, setOptionDrawerTodoId }) {
+function TodoListItem({ todo, index, openDrawer }) {
   return (
     <>
       <li key={todo.id} className="mt-10">
@@ -142,7 +142,7 @@ function TodoListItem({ todo, index, setOptionDrawerTodoId }) {
             {todo.content}
           </div>
           <Button
-            onClick={() => setOptionDrawerTodoId(todo.id)}
+            onClick={() => openDrawer(todo.id)}
             className="w-[130px] flex-shrink-0 !items-start !rounded-[0_20px_20px_0]"
             color="inherit"
           >
@@ -158,20 +158,28 @@ function TodoListItem({ todo, index, setOptionDrawerTodoId }) {
 
 function TodoList({ todosState }) {
   const [optionDrawerTodoId, setOptionDrawerTodoId] = useState(null);
+  const drawerOpened = useMemo(
+    () => optionDrawerTodoId !== null,
+    [optionDrawerTodoId]
+  );
+  const closeDrawer = () => setOptionDrawerTodoId(null);
+  const openDrawer = (id) => setOptionDrawerTodoId(id);
 
   return (
     <>
-      <Drawer
-        anchor={"bottom"}
-        open={optionDrawerTodoId !== null}
-        onClose={() => setOptionDrawerTodoId(null)}
-      >
+      <Drawer anchor={"bottom"} open={drawerOpened} onClose={closeDrawer}>
         <div className="p-10">{optionDrawerTodoId}번 옵션 드로어</div>
       </Drawer>
       <div className="mt-4 px-4">
         <ul>
           {todosState.todos.map((todo, index) => (
-            <TodoListItem key={todo.id} todo={todo} index={index} setOptionDrawerTodoId={setOptionDrawerTodoId}/>
+            <TodoListItem
+              key={todo.id}
+              todo={todo}
+              index={index}
+              setOptionDrawerTodoId={setOptionDrawerTodoId}
+              openDrawer={openDrawer}
+            />
           ))}
         </ul>
       </div>
