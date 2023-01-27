@@ -184,11 +184,19 @@ function TodoOptionDrawer({ state }) {
       >
         <List className="!py-0">
           <ListItem className="!pt-5 !p-5">
-          <span className="text-red-500 !pr-2">{state.todoId}번</span> 
-          옵션 드로어
+            <span className="text-red-500 !pr-2">{state.todoId}번</span>
+            옵션 드로어
           </ListItem>
-          <ListItemButton className="!pt-5 !p-5">수정</ListItemButton>
-          <ListItemButton className="!pt-5 !p-5">삭제</ListItemButton>
+          <ListItemButton className="!pt-5 !p-5">
+            <i className="fa-solid fa-pen-to-square"></i>
+            &nbsp;
+            <span>수정</span>
+          </ListItemButton>
+          <ListItemButton className="!pt-5 !p-5">
+            <i className="fa-solid fa-trash"></i>
+            &nbsp;
+            <span>삭제</span>
+          </ListItemButton>
         </List>
       </SwipeableDrawer>
     </>
