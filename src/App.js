@@ -156,19 +156,31 @@ function TodoListItem({ todo, index, openDrawer }) {
   );
 }
 
+function useTodoOptionDrawerState() {
+  const [todoId, setTodoId] = useState(null);
+  const opend = useMemo(() => todoId !== null, [todoId]);
+  const close = () => setTodoId(null);
+  const open = (id) => setTodoId(id);
+
+  return {
+    todoId,
+    opend,
+    close,
+    open,
+  };
+}
+
 function TodoList({ todosState }) {
-  const [optionDrawerTodoId, setOptionDrawerTodoId] = useState(null);
-  const drawerOpened = useMemo(
-    () => optionDrawerTodoId !== null,
-    [optionDrawerTodoId]
-  );
-  const closeDrawer = () => setOptionDrawerTodoId(null);
-  const openDrawer = (id) => setOptionDrawerTodoId(id);
+  const todoOptionDrawerState = useTodoOptionDrawerState();
 
   return (
     <>
-      <Drawer anchor={"bottom"} open={drawerOpened} onClose={closeDrawer}>
-        <div className="p-10">{optionDrawerTodoId}번 옵션 드로어</div>
+      <Drawer
+        anchor={"bottom"}
+        open={todoOptionDrawerState.opend}
+        onClose={todoOptionDrawerState.close}
+      >
+        <div className="p-10">{todoOptionDrawerState.todoId}번 옵션 드로어</div>
       </Drawer>
       <div className="mt-4 px-4">
         <ul>
@@ -177,8 +189,7 @@ function TodoList({ todosState }) {
               key={todo.id}
               todo={todo}
               index={index}
-              setOptionDrawerTodoId={setOptionDrawerTodoId}
-              openDrawer={openDrawer}
+              openDrawer={todoOptionDrawerState.open}
             />
           ))}
         </ul>
