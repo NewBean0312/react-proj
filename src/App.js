@@ -181,7 +181,26 @@ function useTodoOptionDrawerState() {
   };
 }
 
+function useEditTodoModalState() {
+  const [opend, setOpend] = useState(false);
+
+  const open = () => {
+    setOpend(true);
+  };
+
+  const close = () => {
+    setOpend(false);
+  };
+
+  return {
+    opend,
+    open,
+    close,
+  };
+}
+
 function TodoOptionDrawer({ todosState, state }) {
+  const editTodoModalState = useEditTodoModalState();
   const removeTodo = () => {
     todosState.removeTodoById(state.todoId);
     state.close();
@@ -199,7 +218,7 @@ function TodoOptionDrawer({ todosState, state }) {
             <span className="text-red-500 !pr-2">{state.todoId}번</span>
             옵션 드로어
           </ListItem>
-          <ListItemButton className="!pt-5 !p-5 !item-baseline">
+          <ListItemButton className="!pt-5 !p-5 !item-baseline" onClick={editTodoModalState.open}>
             <i className="fa-solid fa-pen-to-square"></i>
             &nbsp;
             <span>수정</span>
@@ -215,8 +234,8 @@ function TodoOptionDrawer({ todosState, state }) {
         </List>
       </SwipeableDrawer>
       <Modal
-        open={true}
-        onClose={() => {}}
+        open={editTodoModalState.opend}
+        onClose={editTodoModalState.close}
         className="flex justify-center items-center"
       >
         <div className="bg-white p-10 rounded-[20px]">안녕하세요</div>
