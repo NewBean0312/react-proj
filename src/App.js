@@ -277,6 +277,10 @@ function useEditTodoModalState() {
 function TodoOptionDrawer({ todosState, state }) {
   const editTodoModalState = useEditTodoModalState();
   const removeTodo = () => {
+    if (window.confirm(`${state.todoId}번 할 일을 삭제하겠습니까?`) == false) {
+      return;
+    }
+
     todosState.removeTodoById(state.todoId);
     state.close();
   };
