@@ -9,6 +9,7 @@ import {
   List,
   ListItem,
   ListItemButton,
+  Modal,
 } from "@mui/material";
 import classNames from "classnames";
 
@@ -213,6 +214,13 @@ function TodoOptionDrawer({ todosState, state }) {
           </ListItemButton>
         </List>
       </SwipeableDrawer>
+      <Modal
+        open={true}
+        onClose={() => {}}
+        className="flex justify-center items-center"
+      >
+        <div className="bg-white p-10 rounded-[20px]">안녕하세요</div>
+      </Modal>
     </>
   );
 }
