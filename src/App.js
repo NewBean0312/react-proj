@@ -40,11 +40,18 @@ function useTodosState() {
     setTodos(newTodos);
   };
 
+  const removeTodoById = (id) => {
+    const index = todos.findIndex((todo) => todo.id == id);
+
+    return removeTodo(index);
+  };
+
   return {
     todos,
     addTodo,
-    removeTodo,
     modifyTodo,
+    removeTodo,
+    removeTodoById,
   };
 }
 
@@ -173,7 +180,11 @@ function useTodoOptionDrawerState() {
   };
 }
 
-function TodoOptionDrawer({ state }) {
+function TodoOptionDrawer({ todosState, state }) {
+  const removeTodo = () => {
+    todosState.removeTodoById(state.todoId);
+    state.close();
+  };
   return (
     <>
       <SwipeableDrawer
@@ -187,12 +198,15 @@ function TodoOptionDrawer({ state }) {
             <span className="text-red-500 !pr-2">{state.todoId}번</span>
             옵션 드로어
           </ListItem>
-          <ListItemButton className="!pt-5 !p-5">
+          <ListItemButton className="!pt-5 !p-5 !item-baseline">
             <i className="fa-solid fa-pen-to-square"></i>
             &nbsp;
             <span>수정</span>
           </ListItemButton>
-          <ListItemButton className="!pt-5 !p-5">
+          <ListItemButton
+            className="!pt-5 !p-5 !item-baseline"
+            onClick={removeTodo}
+          >
             <i className="fa-solid fa-trash"></i>
             &nbsp;
             <span>삭제</span>
@@ -208,7 +222,7 @@ function TodoList({ todosState }) {
 
   return (
     <>
-      <TodoOptionDrawer state={todoOptionDrawerState} />
+      <TodoOptionDrawer todosState={todosState} state={todoOptionDrawerState} />
       <div className="mt-4 px-4">
         <ul>
           {todosState.todos.map((todo, index) => (
@@ -216,6 +230,7 @@ function TodoList({ todosState }) {
               key={todo.id}
               todo={todo}
               index={index}
+              todosState={todosState}
               openDrawer={todoOptionDrawerState.open}
             />
           ))}
