@@ -36,15 +36,39 @@ function useTodosState() {
     setTodos(newTodos);
   };
 
+  const modifyTodoById = (id, newContent) => {
+    const index = findTodoIndexById(id);
+
+    if (index == -1) {
+      return;
+    }
+
+    modifyTodo(index, newContent);
+  }
+
   const removeTodo = (index) => {
     const newTodos = todos.filter((_, _index) => _index != index);
     setTodos(newTodos);
   };
 
   const removeTodoById = (id) => {
-    const index = todos.findIndex((todo) => todo.id == id);
+    const index = findTodoIndexById(id);
 
     return removeTodo(index);
+  };
+
+  const findTodoIndexById = (id) => {
+    return todos.findIndex((todo) => todo.id == id);
+  };
+
+  const findtodoById = (id) => {
+    const index = findTodoIndexById(id);
+
+    if (index == -1) {
+      return null;
+    }
+
+    return todos[index];
   };
 
   return {
@@ -53,6 +77,8 @@ function useTodosState() {
     modifyTodo,
     removeTodo,
     removeTodoById,
+    findtodoById,
+    modifyTodoById,
   };
 }
 
@@ -181,7 +207,7 @@ function useTodoOptionDrawerState() {
   };
 }
 
-function EditTodoModeal({ state }) {
+function EditTodoModal({ state, todo, todosState }) {
   const onSubmit = (e) => {
     e.preventDefault();
 
@@ -195,6 +221,9 @@ function EditTodoModeal({ state }) {
 
       return;
     }
+
+    todosState.modifyTodoById(todo.id, form.content.value);
+    state.close();
   };
 
   return (
@@ -215,6 +244,7 @@ function EditTodoModeal({ state }) {
               type="text"
               label="할일을 입력해주세요."
               variant="outlined"
+              defaultValue={todo?.content}
             />
             <Button type="submit" variant="contained">
               수정
@@ -250,9 +280,15 @@ function TodoOptionDrawer({ todosState, state }) {
     todosState.removeTodoById(state.todoId);
     state.close();
   };
+  const todo = todosState.findtodoById(state.todoId);
+
   return (
     <>
-      <EditTodoModeal state={editTodoModalState} />
+      <EditTodoModal
+        state={editTodoModalState}
+        todo={todo}
+        todosState={todosState}
+      />
       <SwipeableDrawer
         anchor={"bottom"}
         onOpen={() => {}}
