@@ -181,6 +181,51 @@ function useTodoOptionDrawerState() {
   };
 }
 
+function EditTodoModeal({ state }) {
+  const onSubmit = (e) => {
+    e.preventDefault();
+
+    const form = e.target;
+
+    form.content.value = form.content.value.trim();
+
+    if (form.content.value.length == 0) {
+      alert("할 일을 입력해주세요.");
+      form.content.focus();
+
+      return;
+    }
+  };
+
+  return (
+    <>
+      <Modal
+        open={state.opend}
+        onClose={state.close}
+        className="flex justify-center items-center"
+      >
+        <div className="bg-white p-10 rounded-[20px]">
+          <form onSubmit={onSubmit} className="flex flex-col mt-4 px-4 gap-2">
+            <TextField
+              multiline
+              minRows={3}
+              maxRows={10}
+              autoComplete="off"
+              name="content"
+              type="text"
+              label="할일을 입력해주세요."
+              variant="outlined"
+            />
+            <Button type="submit" variant="contained">
+              수정
+            </Button>
+          </form>
+        </div>
+      </Modal>
+    </>
+  );
+}
+
 function useEditTodoModalState() {
   const [opend, setOpend] = useState(false);
 
@@ -207,6 +252,7 @@ function TodoOptionDrawer({ todosState, state }) {
   };
   return (
     <>
+      <EditTodoModeal state={editTodoModalState} />
       <SwipeableDrawer
         anchor={"bottom"}
         onOpen={() => {}}
@@ -218,7 +264,10 @@ function TodoOptionDrawer({ todosState, state }) {
             <span className="text-red-500 !pr-2">{state.todoId}번</span>
             옵션 드로어
           </ListItem>
-          <ListItemButton className="!pt-5 !p-5 !item-baseline" onClick={editTodoModalState.open}>
+          <ListItemButton
+            className="!pt-5 !p-5 !item-baseline"
+            onClick={editTodoModalState.open}
+          >
             <i className="fa-solid fa-pen-to-square"></i>
             &nbsp;
             <span>수정</span>
@@ -233,13 +282,6 @@ function TodoOptionDrawer({ todosState, state }) {
           </ListItemButton>
         </List>
       </SwipeableDrawer>
-      <Modal
-        open={editTodoModalState.opend}
-        onClose={editTodoModalState.close}
-        className="flex justify-center items-center"
-      >
-        <div className="bg-white p-10 rounded-[20px]">안녕하세요</div>
-      </Modal>
     </>
   );
 }
