@@ -361,6 +361,20 @@ function TodoList({ todosState }) {
   );
 }
 
+function NoticeSnackbar({ open, setOpen }) {
+  return (
+    <>
+      <Snackbar
+        open={open}
+        autoHideDuration={6000}
+        onClose={() => setOpen(false)}
+      >
+        <Alert severity="success">게시물이 삭제되었습니다.</Alert>
+      </Snackbar>
+    </>
+  );
+}
+
 function App({ theme }) {
   const todosState = useTodosState();
 
@@ -392,13 +406,6 @@ function App({ theme }) {
 
   return (
     <>
-      <Snackbar
-        open={open}
-        autoHideDuration={6000}
-        onClose={() => setOpen(false)}
-      >
-        <Alert severity="success">게시물이 삭제되었습니다.</Alert>
-      </Snackbar>
       <AppBar position="static" onClick={() => setOpen(true)}>
         <Toolbar className="justify-center">
           <div className="flex-1"></div>
@@ -406,6 +413,7 @@ function App({ theme }) {
           <div className="flex-1"></div>
         </Toolbar>
       </AppBar>
+      <NoticeSnackbar open={open} setOpen={setOpen} />
       <NewTodoFrom todosState={todosState} />
       <TodoList todosState={todosState} />
     </>
