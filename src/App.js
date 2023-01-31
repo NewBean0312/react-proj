@@ -361,15 +361,42 @@ function TodoList({ todosState }) {
   );
 }
 
-function NoticeSnackbar({ open, setOpen }) {
+function useNoticeSnackbarState() {
+  const [opened, setOpened] = useState(null);
+  const [autoHideDuration, setAutoHideDuration] = useState(null);
+  const [severity, setSeverity] = useState(null);
+  const [msg, setMsg] = useState(null);
+
+  const open = (msg, severity = "success", autoHideDuration = 6000) => {
+    setOpened(true);
+    setAutoHideDuration(autoHideDuration);
+    setSeverity(severity);
+    setMsg(msg);
+  };
+
+  const close = () => {
+    setOpened(false);
+  }
+
+  return {
+    opened,
+    autoHideDuration,
+    severity,
+    msg,
+    open,
+    close,
+  };
+}
+
+function NoticeSnackbar({ state }) {
   return (
     <>
       <Snackbar
-        open={open}
-        autoHideDuration={6000}
-        onClose={() => setOpen(false)}
+        open={state.opened}
+        autoHideDuration={state.autoHideDuration}
+        onClose={state.close}
       >
-        <Alert severity="success">게시물이 삭제되었습니다.</Alert>
+        <Alert severity={state.severity}>{state.msg}</Alert>
       </Snackbar>
     </>
   );
@@ -377,6 +404,7 @@ function NoticeSnackbar({ open, setOpen }) {
 
 function App({ theme }) {
   const todosState = useTodosState();
+  const noticeSnackbarState = useNoticeSnackbarState();
 
   useEffect(
     () => (
@@ -402,18 +430,16 @@ function App({ theme }) {
     });
   }, []);
 
-  const [open, setOpen] = useState(false);
-
   return (
     <>
-      <AppBar position="static" onClick={() => setOpen(true)}>
+      <AppBar position="static" onClick={() => noticeSnackbarState.open("안녕")}>
         <Toolbar className="justify-center">
           <div className="flex-1"></div>
           <div className="flex-bold">HAPPY NOTE</div>
           <div className="flex-1"></div>
         </Toolbar>
       </AppBar>
-      <NoticeSnackbar open={open} setOpen={setOpen} />
+      <NoticeSnackbar state={noticeSnackbarState} />
       <NewTodoFrom todosState={todosState} />
       <TodoList todosState={todosState} />
     </>
