@@ -207,7 +207,11 @@ function useTodoOptionDrawerState() {
   };
 }
 
-function EditTodoModal({ state, todo, todosState }) {
+function EditTodoModal({ state, todo, todosState, closeDrawer }) {
+  const close = () => {
+    state.close();
+    closeDrawer();
+  }
   const onSubmit = (e) => {
     e.preventDefault();
 
@@ -223,14 +227,14 @@ function EditTodoModal({ state, todo, todosState }) {
     }
 
     todosState.modifyTodoById(todo.id, form.content.value);
-    state.close();
+    close();
   };
 
   return (
     <>
       <Modal
         open={state.opend}
-        onClose={state.close}
+        onClose={close}
         className="flex justify-center items-center"
       >
         <div className="bg-white p-10 rounded-[20px]">
@@ -278,6 +282,7 @@ function TodoOptionDrawer({ todosState, state }) {
   const editTodoModalState = useEditTodoModalState();
   const removeTodo = () => {
     if (window.confirm(`${state.todoId}번 할 일을 삭제하겠습니까?`) == false) {
+      state.close();
       return;
     }
 
@@ -292,6 +297,7 @@ function TodoOptionDrawer({ todosState, state }) {
         state={editTodoModalState}
         todo={todo}
         todosState={todosState}
+        closeDrawer={state.close}
       />
       <SwipeableDrawer
         anchor={"bottom"}
