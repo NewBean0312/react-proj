@@ -10,8 +10,14 @@ import {
   ListItem,
   ListItemButton,
   Modal,
+  Snackbar,
+  Alert as MuiAlert,
 } from "@mui/material";
 import classNames from "classnames";
+
+const Alert = React.forwardRef((props, ref) => {
+  return <MuiAlert {...props} ref={ref} variant="filled" />;
+});
 
 function useTodosState() {
   const [todos, setTodos] = useState([]);
@@ -44,7 +50,7 @@ function useTodosState() {
     }
 
     modifyTodo(index, newContent);
-  }
+  };
 
   const removeTodo = (index) => {
     const newTodos = todos.filter((_, _index) => _index != index);
@@ -211,7 +217,7 @@ function EditTodoModal({ state, todo, todosState, closeDrawer }) {
   const close = () => {
     state.close();
     closeDrawer();
-  }
+  };
   const onSubmit = (e) => {
     e.preventDefault();
 
@@ -382,9 +388,18 @@ function App({ theme }) {
     });
   }, []);
 
+  const [open, setOpen] = useState(false);
+
   return (
     <>
-      <AppBar position="static">
+      <Snackbar
+        open={open}
+        autoHideDuration={6000}
+        onClose={() => setOpen(false)}
+      >
+        <Alert severity="success">게시물이 삭제되었습니다.</Alert>
+      </Snackbar>
+      <AppBar position="static" onClick={() => setOpen(true)}>
         <Toolbar className="justify-center">
           <div className="flex-1"></div>
           <div className="flex-bold">HAPPY NOTE</div>
