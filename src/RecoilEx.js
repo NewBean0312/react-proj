@@ -1,8 +1,19 @@
 import React, { useState } from "react";
 import { Button } from "@mui/material";
+import { atom, useRecoilState } from "recoil";
+
+const page1NoAtom = atom({
+  key: "app/page1NoAtom",
+  default: 0,
+});
+
+const page2NoAtom = atom({
+  key: "app/page2NoAtom",
+  default: 0,
+});
 
 function Page1() {
-  const [no, setNo] = useState(0);
+  const [no, setNo] = useRecoilState(page1NoAtom);
   return (
     <>
       <h1>페이지 1</h1>
@@ -24,7 +35,7 @@ function Page1() {
 }
 
 function Page2() {
-  const [no, setNo] = useState(0);
+  const [no, setNo] = useRecoilState(page2NoAtom);
   return (
     <>
       <h1>페이지 2</h1>
@@ -58,3 +69,4 @@ export default function RecoilEx() {
     </>
   );
 }
+
