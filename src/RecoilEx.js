@@ -17,6 +17,16 @@ const page2NoAtom = atom({
   default: 0,
 });
 
+const page3NoAtom = atom({
+  key: "app/page3NoAtom",
+  default: 0,
+});
+
+const page4NoAtom = atom({
+  key: "app/page4NoAtom",
+  default: 0,
+});
+
 function Page1() {
   const [no, setNo] = useRecoilState(page1NoAtom);
   const setPage2No = useSetRecoilState(page2NoAtom);
@@ -72,9 +82,48 @@ function Page2() {
   );
 }
 
+function Page3() {
+  const [no, setNo] = useRecoilState(page3NoAtom);
+
+  return (
+    <>
+      <h1>페이지 3</h1>
+      <ul>
+        <li>페이지 3의 숫자 : {no}</li>
+        <li>
+          <Button onClick={() => setNo(no + 10)} variant="outlined">
+            페이지 3의 10 증가
+          </Button>
+        </li>
+      </ul>
+    </>
+  );
+}
+
+function Page4() {
+  const [no, setNo] = useRecoilState(page4NoAtom);
+
+  return (
+    <>
+      <h1>페이지 4</h1>
+      <ul>
+        <li>페이지 4의 숫자 : {no}</li>
+        <li>
+          <Button onClick={() => setNo(no + 10)} variant="outlined">
+            페이지 4의 10 증가
+          </Button>
+        </li>
+      </ul>
+    </>
+  );
+}
+
 export default function RecoilEx() {
-  const [pageName, setPageName] = useState("page1");
-  const switchPage = () => setPageName(pageName == "page1" ? "page2" : "page1");
+  const [pageNo, setPageNo] = useState(1);
+  const switchPage = () => setPageNo(pageNo + 1 <= 4 ? pageNo + 1 : 1);
+
+  const pageName = "page" + pageNo;
+
   return (
     <>
       <Button onClick={switchPage} variant="outlined">
@@ -82,6 +131,8 @@ export default function RecoilEx() {
       </Button>
       {pageName == "page1" && <Page1 />}
       {pageName == "page2" && <Page2 />}
+      {pageName == "page3" && <Page3 />}
+      {pageName == "page4" && <Page4 />}
     </>
   );
 }
