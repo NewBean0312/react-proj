@@ -14,6 +14,7 @@ import {
   Alert as MuiAlert,
 } from "@mui/material";
 import classNames from "classnames";
+import RecoilEx from "./RecoilEx";
 
 const Alert = React.forwardRef((props, ref) => {
   return <MuiAlert {...props} ref={ref} variant="filled" />;
@@ -449,7 +450,7 @@ function App({ theme }) {
 
   return (
     <>
-      <AppBar position="static">
+      {/* <AppBar position="static">
         <Toolbar className="justify-center">
           <div className="flex-1"></div>
           <div className="flex-bold">HAPPY NOTE</div>
@@ -464,7 +465,8 @@ function App({ theme }) {
       <TodoList
         todosState={todosState}
         noticeSnackbarState={noticeSnackbarState}
-      />
+      /> */}
+      <RecoilEx />
     </>
   );
 }
