@@ -33,8 +33,10 @@ const Alert = React.forwardRef((props, ref) => {
 
 function useTodosStatus() {
   const [todos, setTodos] = useRecoilState(todosAtom);
-  const [lateTodoId, setlateTodoId] = useRecoilState(lastTodoIdAtom);
-  const lastTodoIdRef = useRef(lateTodoId);
+  const [lastTodoId, setlateTodoId] = useRecoilState(lastTodoIdAtom);
+  const lastTodoIdRef = useRef(lastTodoId);
+
+  lastTodoIdRef.current = lastTodoId;
 
   const addTodo = (newContent) => {
     const id = ++lastTodoIdRef.current;
@@ -231,13 +233,9 @@ function useTodoOptionDrawerStatus() {
   };
 }
 
-function EditTodoModal({
-  status,
-  todo,
-  todosStatus,
-  closeDrawer,
-  noticeSnackbarStatus,
-}) {
+function EditTodoModal({ status, todo, closeDrawer, noticeSnackbarStatus }) {
+  const todosStatus = useTodosStatus();
+
   const close = () => {
     status.close();
     closeDrawer();
@@ -309,7 +307,8 @@ function useEditTodoModalStatus() {
   };
 }
 
-function TodoOptionDrawer({ status, todosStatus, noticeSnackbarStatus }) {
+function TodoOptionDrawer({ status, noticeSnackbarStatus }) {
+  const todosStatus = useTodosStatus();
   const editTodoModalStatus = useEditTodoModalStatus();
   const removeTodo = () => {
     if (window.confirm(`${status.todoId}번 할 일을 삭제하겠습니까?`) == false) {
@@ -329,7 +328,6 @@ function TodoOptionDrawer({ status, todosStatus, noticeSnackbarStatus }) {
         noticeSnackbarStatus={noticeSnackbarStatus}
         status={editTodoModalStatus}
         todo={todo}
-        todosStatus={todosStatus}
         closeDrawer={status.close}
       />
       <SwipeableDrawer
@@ -373,7 +371,6 @@ function TodoList({ noticeSnackbarStatus }) {
     <>
       <TodoOptionDrawer
         status={todoOptionDrawerStatus}
-        todosStatus={todosStatus}
         noticeSnackbarStatus={noticeSnackbarStatus}
       />
       <div className="mt-4 px-4">
@@ -384,7 +381,6 @@ function TodoList({ noticeSnackbarStatus }) {
               key={todo.id}
               todo={todo}
               index={index}
-              todosStatus={todosStatus}
               openDrawer={todoOptionDrawerStatus.open}
             />
           ))}
@@ -474,9 +470,7 @@ function App({ theme }) {
       </AppBar>
       <NoticeSnackbar status={noticeSnackbarStatus} />
       <NewTodoFrom noticeSnackbarStatus={noticeSnackbarStatus} />
-      <TodoList
-        noticeSnackbarStatus={noticeSnackbarStatus}
-      />
+      <TodoList noticeSnackbarStatus={noticeSnackbarStatus} />
     </>
   );
 }
