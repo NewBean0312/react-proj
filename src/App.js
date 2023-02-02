@@ -15,6 +15,8 @@ import {
 } from "@mui/material";
 import classNames from "classnames";
 
+import RecoilEx from "./RecoilEx";
+
 import { atom, useRecoilState } from "recoil";
 
 const todosAtom = atom({
@@ -461,7 +463,7 @@ function App({ theme }) {
 
   return (
     <>
-      <AppBar position="static">
+      {/* <AppBar position="static">
         <Toolbar className="justify-center">
           <div className="flex-1"></div>
           <div className="flex-bold">HAPPY NOTE</div>
@@ -470,7 +472,8 @@ function App({ theme }) {
       </AppBar>
       <NoticeSnackbar status={noticeSnackbarStatus} />
       <NewTodoFrom noticeSnackbarStatus={noticeSnackbarStatus} />
-      <TodoList noticeSnackbarStatus={noticeSnackbarStatus} />
+      <TodoList noticeSnackbarStatus={noticeSnackbarStatus} /> */}
+      <RecoilEx />
     </>
   );
 }

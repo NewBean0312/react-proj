@@ -8,9 +8,14 @@ import {
   atomFamily,
 } from "recoil";
 
+import { recoilPersist } from "recoil-persist";
+
+const { persistAtom } = recoilPersist();
+
 const pageCountAtomFamily = atomFamily({
   key: "RecoilEx/pageCountAtomFamily",
   default: (pageNo) => 0,
+  effects_UNSTABLE: [persistAtom],
 });
 
 function usePageCount(pageNo) {
