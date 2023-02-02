@@ -24,13 +24,29 @@ const { persistAtom } = recoilPersist();
 
 const todosAtom = atom({
   key: "app/todosAtom",
-  default: [],
+  default: [
+    {
+      id: 3,
+      regDate: "2023-02-02 12:12:12",
+      content: "공부",
+    },
+    {
+      id: 2,
+      regDate: "2023-02-02 12:12:12",
+      content: "요리",
+    },
+    {
+      id: 1,
+      regDate: "2023-02-02 12:12:12",
+      content: "운동",
+    },
+  ],
   effects_UNSTABLE: [persistAtom],
 });
 
 const lastTodoIdAtom = atom({
   key: "app/lastTodoIdAtom",
-  default: 0,
+  default: 3,
   effects_UNSTABLE: [persistAtom],
 });
 
