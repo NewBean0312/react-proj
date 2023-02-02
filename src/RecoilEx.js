@@ -5,51 +5,25 @@ import {
   useRecoilState,
   useRecoilValue,
   useSetRecoilState,
+  atomFamily
 } from "recoil";
 
-const page1NoAtom = atom({
-  key: "app/page1NoAtom",
-  default: 0,
-});
-
-const page2NoAtom = atom({
-  key: "app/page2NoAtom",
-  default: 0,
-});
-
-const page3NoAtom = atom({
-  key: "app/page3NoAtom",
-  default: 0,
-});
-
-const page4NoAtom = atom({
-  key: "app/page4NoAtom",
-  default: 0,
+const pageNoAtomFamily = atomFamily({
+  key: "RecoilEx/pageNoAtomFamily",
+  default: (no) => 0,
 });
 
 function Page1() {
-  const [no, setNo] = useRecoilState(page1NoAtom);
-  const setPage2No = useSetRecoilState(page2NoAtom);
-  const onClick = () => setPage2No(0);
+  const [no, setNo] = useRecoilState(pageNoAtomFamily(1));
 
   return (
     <>
       <h1>페이지 1</h1>
-      <div>
-        <Button onClick={onClick} variant="outlined">
-          페이지 2의 값을 초기화
-        </Button>
-      </div>
       <ul>
         <li>페이지 1의 숫자 : {no}</li>
         <li>
           <Button onClick={() => setNo(no + 10)} variant="outlined">
             페이지 1의 10 증가
-          </Button>
-        </li>
-        <li>
-          <Button onClick={() => setNo(no - 10)} variant="outlined">
-            페이지 1의 10 감소
           </Button>
         </li>
       </ul>
@@ -58,23 +32,16 @@ function Page1() {
 }
 
 function Page2() {
-  const [no, setNo] = useRecoilState(page2NoAtom);
-  const page1No = useRecoilValue(page1NoAtom);
+  const [no, setNo] = useRecoilState(pageNoAtomFamily(2));
 
   return (
     <>
       <h1>페이지 2</h1>
-      <div>페이지 1의 숫자 : {page1No}</div>
       <ul>
         <li>페이지 2의 숫자 : {no}</li>
         <li>
           <Button onClick={() => setNo(no + 10)} variant="outlined">
             페이지 2의 10 증가
-          </Button>
-        </li>
-        <li>
-          <Button onClick={() => setNo(no - 10)} variant="outlined">
-            페이지 2의 10 감소
           </Button>
         </li>
       </ul>
@@ -83,7 +50,7 @@ function Page2() {
 }
 
 function Page3() {
-  const [no, setNo] = useRecoilState(page3NoAtom);
+  const [no, setNo] = useRecoilState(pageNoAtomFamily(3));
 
   return (
     <>
@@ -101,7 +68,7 @@ function Page3() {
 }
 
 function Page4() {
-  const [no, setNo] = useRecoilState(page4NoAtom);
+  const [no, setNo] = useRecoilState(pageNoAtomFamily(4));
 
   return (
     <>
