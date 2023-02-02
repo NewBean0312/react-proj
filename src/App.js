@@ -22,16 +22,23 @@ const  todosAtom = atom({
   default: [],
 });
 
+const  lastTodoIdAtom = atom({
+  key: "app/lastTodoIdAtom",
+  default: 0,
+});
+
 const Alert = React.forwardRef((props, ref) => {
   return <MuiAlert {...props} ref={ref} variant="filled" />;
 });
 
 function useTodosStatus() {
   const [todos, setTodos] = useRecoilState(todosAtom);
-  const lastTodoIdRef = useRef(0);
+  const [lateTodoId, setlateTodoId] = useRecoilState(lastTodoIdAtom);
+  const lastTodoIdRef = useRef(lateTodoId);
 
   const addTodo = (newContent) => {
     const id = ++lastTodoIdRef.current;
+    setlateTodoId(id);
 
     const newTodo = {
       id,
