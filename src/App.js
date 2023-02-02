@@ -365,7 +365,8 @@ function TodoOptionDrawer({ status, todosStatus, noticeSnackbarStatus }) {
   );
 }
 
-function TodoList({ todosStatus, noticeSnackbarStatus }) {
+function TodoList({ noticeSnackbarStatus }) {
+  const todosStatus = useTodosStatus();
   const todoOptionDrawerStatus = useTodoOptionDrawerStatus();
 
   return (
@@ -474,7 +475,6 @@ function App({ theme }) {
       <NoticeSnackbar status={noticeSnackbarStatus} />
       <NewTodoFrom noticeSnackbarStatus={noticeSnackbarStatus} />
       <TodoList
-        todosStatus={todosStatus}
         noticeSnackbarStatus={noticeSnackbarStatus}
       />
     </>
