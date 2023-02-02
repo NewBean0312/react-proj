@@ -17,12 +17,12 @@ import classNames from "classnames";
 
 import { atom, useRecoilState } from "recoil";
 
-const  todosAtom = atom({
+const todosAtom = atom({
   key: "app/todosAtom",
   default: [],
 });
 
-const  lastTodoIdAtom = atom({
+const lastTodoIdAtom = atom({
   key: "app/lastTodoIdAtom",
   default: 0,
 });
@@ -117,7 +117,8 @@ const muiThemePaletteKeys = [
   "warning",
 ];
 
-function NewTodoFrom({ todosStatus, noticeSnackbarStatus }) {
+function NewTodoFrom({ noticeSnackbarStatus }) {
+  const todosStatus = useTodosStatus();
   const onSubmit = (e) => {
     e.preventDefault();
 
@@ -471,10 +472,7 @@ function App({ theme }) {
         </Toolbar>
       </AppBar>
       <NoticeSnackbar status={noticeSnackbarStatus} />
-      <NewTodoFrom
-        todosStatus={todosStatus}
-        noticeSnackbarStatus={noticeSnackbarStatus}
-      />
+      <NewTodoFrom noticeSnackbarStatus={noticeSnackbarStatus} />
       <TodoList
         todosStatus={todosStatus}
         noticeSnackbarStatus={noticeSnackbarStatus}
