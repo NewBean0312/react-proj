@@ -14,14 +14,20 @@ import {
   Alert as MuiAlert,
 } from "@mui/material";
 import classNames from "classnames";
-import RecoilEx from "./RecoilEx";
+
+import { atom, useRecoilState } from "recoil";
+
+const  todosAtom = atom({
+  key: "app/todosAtom",
+  default: [],
+});
 
 const Alert = React.forwardRef((props, ref) => {
   return <MuiAlert {...props} ref={ref} variant="filled" />;
 });
 
 function useTodosStatus() {
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useRecoilState(todosAtom);
   const lastTodoIdRef = useRef(0);
 
   const addTodo = (newContent) => {
