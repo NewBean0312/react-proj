@@ -8,13 +8,13 @@ import {
   atomFamily,
 } from "recoil";
 
-const pageCountAtom = atom({
-  key: "RecoilEx/pageCountAtom",
-  default: 0,
+const pageCountAtomFamily = atomFamily({
+  key: "RecoilEx/pageCountAtomFamily",
+  default: (pageNo) => 0,
 });
 
-function usePageCount() {
-  const [count, setCount] = useRecoilState(pageCountAtom);
+function usePageCount(pageNo) {
+  const [count, setCount] = useRecoilState(pageCountAtomFamily(pageNo));
 
   const increaseOne = () => setCount(count + 1);
   const decreaseOne = () => setCount(count - 1);
@@ -33,7 +33,7 @@ function usePageCount() {
 }
 
 function Page1() {
-  const pageCountState = usePageCount();
+  const pageCountState = usePageCount(1);
 
   return (
     <>
@@ -60,7 +60,7 @@ function Page1() {
 }
 
 function Page2() {
-  const pageCountState = usePageCount();
+  const pageCountState = usePageCount(2);
 
   return (
     <>
@@ -87,7 +87,7 @@ function Page2() {
 }
 
 function Page3() {
-  const pageCountState = usePageCount();
+  const pageCountState = usePageCount(3);
 
   return (
     <>
@@ -114,7 +114,7 @@ function Page3() {
 }
 
 function Page4() {
-  const pageCountState = usePageCount();
+  const pageCountState = usePageCount(4);
 
   return (
     <>
