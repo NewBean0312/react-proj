@@ -20,7 +20,12 @@ import RecoilEx from "./RecoilEx";
 import { atom, useRecoilState } from "recoil";
 
 import { recoilPersist } from "recoil-persist";
-const { persistAtom } = recoilPersist();
+const { persistAtom: persistAtomTodos } = recoilPersist({
+  key: "persistAtomTodos",
+});
+const { persistAtom: persistAtomLastTodoId } = recoilPersist({
+  key: "persistAtomLastTodoId",
+});
 
 const todosAtom = atom({
   key: "app/todosAtom",
@@ -41,13 +46,13 @@ const todosAtom = atom({
       content: "운동",
     },
   ],
-  effects_UNSTABLE: [persistAtom],
+  effects_UNSTABLE: [persistAtomTodos],
 });
 
 const lastTodoIdAtom = atom({
   key: "app/lastTodoIdAtom",
   default: 3,
-  effects_UNSTABLE: [persistAtom],
+  effects_UNSTABLE: [persistAtomLastTodoId],
 });
 
 const Alert = React.forwardRef((props, ref) => {
