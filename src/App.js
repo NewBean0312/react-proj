@@ -418,21 +418,40 @@ function TodoList({ noticeSnackbarStatus }) {
   );
 }
 
+const noticeSnackbarInfoAtom = atom({
+  key: "app/noticeSnackbarInfoAtom",
+  default: {
+    opened: false,
+    autoHideDuration: 0,
+    severity: "",
+    msg: "",
+  },
+});
+
 function useNoticeSnackbarStatus() {
-  const [opened, setOpened] = useState(null);
-  const [autoHideDuration, setAutoHideDuration] = useState(null);
-  const [severity, setSeverity] = useState(null);
-  const [msg, setMsg] = useState(null);
+  const [noticeSnackbarInfo, setNoticeSnackbarInfo] = useRecoilState(
+    noticeSnackbarInfoAtom
+  );
+
+  const opened = noticeSnackbarInfo.opened;
+  const autoHideDuration = noticeSnackbarInfo.autoHideDuration;
+  const severity = noticeSnackbarInfo.severity;
+  const msg = noticeSnackbarInfo.msg;
 
   const open = (msg, severity = "success", autoHideDuration = 6000) => {
-    setOpened(true);
-    setAutoHideDuration(autoHideDuration);
-    setSeverity(severity);
-    setMsg(msg);
+    setNoticeSnackbarInfo({
+      opened: true,
+      autoHideDuration,
+      severity,
+      msg,
+    });
   };
 
   const close = () => {
-    setOpened(false);
+    setNoticeSnackbarInfo({
+      ...noticeSnackbarInfo,
+      opend: false,
+    });
   };
 
   return {
