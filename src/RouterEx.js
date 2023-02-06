@@ -1,9 +1,10 @@
 import React, { useState } from "react";
+import { Button } from "@mui/material";
 
 function HomePage() {
   return (
     <>
-      <h1>홈 페이지</h1>
+      <h1>Home 페이지</h1>
     </>
   );
 }
@@ -29,29 +30,32 @@ export default function RouterEx() {
 
   return (
     <>
-      <div>
-        <span
+      <div className="p-5">현재 주소 : {url}</div>
+      <ul className="flex gap-3 p-5">
+        <li
           onClick={() => setUrl("home")}
           className="hover:text-red-300 cursor-pointer"
         >
-          홈
-        </span>
-        <span
+          <Button variant="contained">Home</Button>
+        </li>
+        <li
           onClick={() => setUrl("about")}
           className="hover:text-red-300 cursor-pointer"
         >
-          About
-        </span>
-        <span
+          <Button variant="contained">About</Button>
+        </li>
+        <li
           onClick={() => setUrl("login")}
           className="hover:text-red-300 cursor-pointer"
         >
-          로그인
-        </span>
+          <Button variant="contained">Login</Button>
+        </li>
+      </ul>
+      <div className="p-5">
+        {url == "home" && <HomePage />}
+        {url == "about" && <AboutPage />}
+        {url == "login" && <LoginPage />}
       </div>
-      {url == "home" && <HomePage />}
-      {url == "about" && <AboutPage />}
-      {url == "login" && <LoginPage />}
     </>
   );
 }
