@@ -31,6 +31,10 @@ function useHistory() {
   const [url, setUrl] = useState("home");
   const [historyUrls, setHistoryUrls] = useState([initialUrl]);
 
+  const des = historyUrls.map((historyUrl, index) => <span
+  style={{color: currentIndex == index ? "red" : null}}
+  className="inline-block border border-black p-2">{historyUrl}</span>)
+
   const movePage = (url) => {
     setUrl(url);
     setHistoryUrls([url, ...historyUrls]);
@@ -62,6 +66,7 @@ function useHistory() {
     historyUrls,
     movePrev,
     moveNext,
+    des,
   };
 }
 
@@ -72,7 +77,7 @@ export default function RouterEx() {
     <>
       <div className="p-5">현재 주소 : {history.url}</div>
       <div className="p-5">
-        히스토리 : {history.historyUrls.join(",")}
+        히스토리 : {history.des}
         <br />
         <Button variant="outlined" onClick={history.movePrev}>
           뒤로가기
