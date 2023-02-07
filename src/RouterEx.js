@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 
 function HomeMainPage() {
   return (
@@ -17,22 +17,16 @@ function HomeAboutPage() {
   );
 }
 
-function UserLoginPage() {
-  return (
-    <>
-      <h1>User Login</h1>
-    </>
-  );
-}
-
 export default function ReouterEx() {
+  const location = useLocation();
+
   return (
     <>
+      <header>현재주소 : {location.pathname}</header>
       <Routes>
         <Route path="/home/main" element={<HomeMainPage />} />
         <Route path="/home/about" element={<HomeAboutPage />} />
-        <Route path="/user/login" element={<UserLoginPage />} />
-        <Route path="*" element={<Navigate to="/user/login" />} />
+        <Route path="*" element={<Navigate to="/home/main" />} />
       </Routes>
     </>
   );
