@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { Routes, Route, Navigate, useLocation, NavLink } from "react-router-dom";
 
 function HomeMainPage() {
   return (
@@ -23,6 +23,13 @@ export default function ReouterEx() {
   return (
     <>
       <header>현재주소 : {location.pathname}</header>
+      <hr />
+      <NavLink to="/home/main" className="btn btn-link">
+        MAIN
+      </NavLink>
+      <NavLink to="/home/about" className="btn btn-link">
+        ABOUT
+      </NavLink>
       <Routes>
         <Route path="/home/main" element={<HomeMainPage />} />
         <Route path="/home/about" element={<HomeAboutPage />} />
