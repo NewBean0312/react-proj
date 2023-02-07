@@ -31,13 +31,26 @@ function useHistory() {
   const [url, setUrl] = useState("home");
   const [historyUrls, setHistoryUrls] = useState([initialUrl]);
 
-  const des = historyUrls.map((historyUrl, index) => <span
-  style={{color: currentIndex == index ? "red" : null}}
-  className="inline-block border border-black p-2">{historyUrl}</span>)
+  const des = historyUrls.map((historyUrl, index) => (
+    <span
+      style={{ color: currentIndex == index ? "red" : null }}
+      className="inline-block border border-black p-2"
+    >
+      {currentIndex}
+      <br />
+      {historyUrl}
+    </span>
+  ));
 
   const movePage = (url) => {
+    setCurrentIndex(0);
     setUrl(url);
-    setHistoryUrls([url, ...historyUrls]);
+
+    const newHistoryUrls = historyUrls.filter(
+      (_, index) => index >= currentIndex
+    );
+
+    setHistoryUrls([url, ...newHistoryUrls]);
   };
 
   const movePrev = () => {
