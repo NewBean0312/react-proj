@@ -1,129 +1,39 @@
-import React, { useState } from "react";
-import { Button } from "@mui/material";
+import React from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
 
-function HomePage() {
+function HomeMainPage() {
   return (
     <>
-      <h1>Home 페이지</h1>
+      <h1>HOME, MAIN</h1>
     </>
   );
 }
 
-function AboutPage() {
+function HomeAboutPage() {
   return (
     <>
-      <h1>About 페이지</h1>
+      <h1>HOME, ABOUT</h1>
     </>
   );
 }
 
-function LoginPage() {
+function UserLoginPage() {
   return (
     <>
-      <h1>Login 페이지</h1>
+      <h1>User Login</h1>
     </>
   );
 }
 
-function useHistory() {
-  const initialUrl = "home";
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [url, setUrl] = useState("home");
-  const [historyUrls, setHistoryUrls] = useState([initialUrl]);
-
-  const des = historyUrls.map((historyUrl, index) => (
-    <span
-      style={{ color: currentIndex == index ? "red" : null }}
-      className="inline-block border border-black p-2"
-    >
-      {currentIndex}
-      <br />
-      {historyUrl}
-    </span>
-  ));
-
-  const movePage = (url) => {
-    setCurrentIndex(0);
-    setUrl(url);
-
-    const newHistoryUrls = historyUrls.filter(
-      (_, index) => index >= currentIndex
-    );
-
-    setHistoryUrls([url, ...newHistoryUrls]);
-  };
-
-  const movePrev = () => {
-    if (currentIndex == historyUrls.length - 1) {
-      return false;
-    }
-
-    const url = historyUrls[currentIndex + 1];
-    setUrl(url);
-    setCurrentIndex(currentIndex + 1);
-  };
-
-  const moveNext = () => {
-    if (currentIndex == 0) {
-      return false;
-    }
-
-    const url = historyUrls[currentIndex - 1];
-    setUrl(url);
-    setCurrentIndex(currentIndex - 1);
-  };
-
-  return {
-    url,
-    movePage,
-    historyUrls,
-    movePrev,
-    moveNext,
-    des,
-  };
-}
-
-export default function RouterEx() {
-  const history = useHistory();
-
+export default function ReouterEx() {
   return (
     <>
-      <div className="p-5">현재 주소 : {history.url}</div>
-      <div className="p-5">
-        히스토리 : {history.des}
-        <br />
-        <Button variant="outlined" onClick={history.movePrev}>
-          뒤로가기
-        </Button>
-        <Button variant="outlined" onClick={history.moveNext}>
-          앞으로가기
-        </Button>
-      </div>
-      <ul className="flex gap-3 p-5">
-        <li
-          onClick={() => history.movePage("home")}
-          className="hover:text-red-300 cursor-pointer"
-        >
-          <Button variant="contained">Home</Button>
-        </li>
-        <li
-          onClick={() => history.movePage("about")}
-          className="hover:text-red-300 cursor-pointer"
-        >
-          <Button variant="contained">About</Button>
-        </li>
-        <li
-          onClick={() => history.movePage("login")}
-          className="hover:text-red-300 cursor-pointer"
-        >
-          <Button variant="contained">Login</Button>
-        </li>
-      </ul>
-      <div className="p-5">
-        {history.url == "home" && <HomePage />}
-        {history.url == "about" && <AboutPage />}
-        {history.url == "login" && <LoginPage />}
-      </div>
+      <Routes>
+        <Route path="/home/main" element={<HomeMainPage />} />
+        <Route path="/home/about" element={<HomeAboutPage />} />
+        <Route path="/user/login" element={<UserLoginPage />} />
+        <Route path="*" element={<Navigate to="/user/login" />} />
+      </Routes>
     </>
   );
 }
