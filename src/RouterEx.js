@@ -1,5 +1,12 @@
 import React from "react";
-import { Routes, Route, Navigate, useLocation, NavLink } from "react-router-dom";
+import {
+  Routes,
+  Route,
+  Navigate,
+  useLocation,
+  NavLink,
+} from "react-router-dom";
+import classNames from "classnames";
 
 function HomeMainPage() {
   return (
@@ -24,10 +31,28 @@ export default function ReouterEx() {
     <>
       <header>현재주소 : {location.pathname}</header>
       <hr />
-      <NavLink to="/home/main" className="btn btn-link">
+      <NavLink
+        to="/home/main"
+        className={({ isActive }) =>
+          classNames(
+            "btn",
+            { "btn-link": !isActive },
+            { "btn-primary": isActive }
+          )
+        }
+      >
         MAIN
       </NavLink>
-      <NavLink to="/home/about" className="btn btn-link">
+      <NavLink
+        to="/home/about"
+        className={({ isActive }) =>
+          classNames(
+            "btn",
+            { "btn-link": !isActive },
+            { "btn-primary": isActive }
+          )
+        }
+      >
         ABOUT
       </NavLink>
       <Routes>
