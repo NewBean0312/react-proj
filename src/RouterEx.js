@@ -1,4 +1,5 @@
 import React from "react";
+import { Button } from "@mui/material";
 import {
   Routes,
   Route,
@@ -6,6 +7,7 @@ import {
   useLocation,
   NavLink,
   useParams,
+  useNavigate,
 } from "react-router-dom";
 import classNames from "classnames";
 
@@ -44,12 +46,16 @@ function ArticleListPage() {
 }
 
 function ArticleDetailPage() {
+  const navigate = useNavigate();
   const { id } = useParams();
 
   return (
     <>
       <h1>ARTICLE, DETAIL</h1>
       <h1>{id}번 게시물 상세페이지</h1>
+      <Button variant="outlined" onClick={() => navigate(-1)}>
+        뒤로가기
+      </Button>
     </>
   );
 }
