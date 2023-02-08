@@ -18,9 +18,34 @@ function TodoListPage() {
 }
 
 function TodoWritePage() {
+const onSubmit = (e) => {
+  e.preventDefault();
+  const form = e.target;
+  form.content.value = form.content.value.trim();
+
+  if (form.content.value.length == 0) {
+    alert("할 일을 입력해주세요.");
+    form.content.focus();
+    
+    return;
+  }
+
+  form.content.value = "";
+  form.content.focus();
+}
+
   return (
     <>
       <h1>할 일 작성</h1>
+      <form onSubmit={onSubmit}>
+        <input
+          type="text"
+          name="content"
+          placeholder="할 일을 입력해주세요."
+          className="input input-bordered mr-3"
+        />
+        <input type="submit" value="작성" className="input input-bordered" />
+      </form>
     </>
   );
 }
