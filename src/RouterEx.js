@@ -34,7 +34,9 @@ function useTodosStatus() {
       content,
     };
 
-    const newTodos = [newTodo, ...todos];
+    const newTodos = produce(todos, (draft) => {
+      draft.unshift(newTodo);
+    });
     setTodos(newTodos);
   };
 
