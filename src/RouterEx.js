@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Routes,
   Route,
@@ -9,6 +9,29 @@ import {
   useNavigate,
 } from "react-router-dom";
 
+function useTodosStatus() {
+  const [todos, setTodos] = useState([]);
+
+  const addTodo = (content) => {
+    const id = 1;
+    const regDate = "2023-02-07 12:12:12";
+
+    const newTodo = {
+      id,
+      regDate,
+      content,
+    };
+
+    const newTodos = [newTodo, ...todos];
+    setTodos(newTodos);
+  };
+
+  return {
+    todos,
+    addTodo,
+  }
+}
+
 function TodoListPage() {
   return (
     <>
@@ -18,21 +41,24 @@ function TodoListPage() {
 }
 
 function TodoWritePage() {
-const onSubmit = (e) => {
-  e.preventDefault();
-  const form = e.target;
-  form.content.value = form.content.value.trim();
+  const todosStatus = useTodosStatus();
+  const onSubmit = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    form.content.value = form.content.value.trim();
 
-  if (form.content.value.length == 0) {
-    alert("할 일을 입력해주세요.");
+    if (form.content.value.length == 0) {
+      alert("할 일을 입력해주세요.");
+      form.content.focus();
+
+      return;
+    }
+
+    form.content.value = "";
     form.content.focus();
-    
-    return;
-  }
 
-  form.content.value = "";
-  form.content.focus();
-}
+    todosStatus.addTodo(form.content.value);
+  };
 
   return (
     <>
@@ -46,6 +72,7 @@ const onSubmit = (e) => {
         />
         <input type="submit" value="작성" className="input input-bordered" />
       </form>
+      <div>{todosStatus.todos.length}</div>
     </>
   );
 }
