@@ -9,6 +9,7 @@ import {
   useNavigate,
 } from "react-router-dom";
 import { atom, useRecoilState } from "recoil";
+import produce from "immer";
 
 const todosAtom = atom({
   key: "recoil/todosAtom",
@@ -61,9 +62,9 @@ function useTodosStatus() {
 
     if (index == -1) return;
 
-    const newTodos = todos.map((todo, _index) =>
-      index == _index ? { ...todo, content } : todo
-    );
+    const newTodos = produce(todos, (draft) => {
+      draft[index].content = content;
+    });
     setTodos(newTodos);
   };
 
