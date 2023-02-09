@@ -65,13 +65,28 @@ function TodoListItem({ todo }) {
   const cancelEditMode = () => {
     setEditmode(false);
   };
-  const commitEditMode = () => {
+  const commitEdit = () => {
     setEditmode(false);
+  };
+
+  const onSubmitEditForm = (e) => {
+    e.preventDefault();
+
+    commitEdit();
   };
 
   return (
     <li>
-      {todo.id} : {todo.content}
+      {todo.id} : {editMode || todo.content}
+      {editMode && (
+        <form onSubmit={onSubmitEditForm} style={{display: "inline-block"}}>
+          <input type="text" placeholder="할 일" defaultValue={todo.content} />
+          <button className="ml-1 btn btn-outline">수정완료</button>
+          <button className="ml-1 btn btn-outline" onClick={cancelEditMode}>
+            수정취소
+          </button>
+        </form>
+      )}
       <button
         className="ml-2 btn btn-outline"
         onClick={() =>
@@ -84,16 +99,6 @@ function TodoListItem({ todo }) {
       {editMode || (
         <button className="ml-1 btn btn-outline" onClick={showEditMode}>
           수정
-        </button>
-      )}
-      {editMode && (
-        <button className="ml-1 btn btn-outline" onClick={cancelEditMode}>
-          수정취소
-        </button>
-      )}
-      {editMode && (
-        <button className="ml-1 btn btn-outline" onClick={commitEditMode}>
-          수정완료
         </button>
       )}
     </li>
