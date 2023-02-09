@@ -29,7 +29,7 @@ function useTodosStatus() {
   return {
     todos,
     addTodo,
-  }
+  };
 }
 
 function TodoListPage() {
@@ -83,7 +83,19 @@ export default function ReouterEx() {
   return (
     <>
       <header>
-        상단바
+        <NavLink
+          to="/list"
+          style={({ isActive }) => ({ color: isActive ? "red" : null })}
+        >
+          리스트
+        </NavLink>
+        /
+        <NavLink
+          to="/write"
+          style={({ isActive }) => ({ color: isActive ? "red" : null })}
+        >
+          작성
+        </NavLink>
         <hr />
         주소 : {location.pathname}
       </header>
