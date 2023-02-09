@@ -48,10 +48,22 @@ function useTodosStatus() {
     setTodos(newTodos);
   };
 
+  const modifyTodoById = (id, content) => {
+    const index = findIndexById(id);
+
+    if (index == -1) return;
+
+    const newTodos = todos.map((todo, _index) =>
+      index == _index ? { ...todo, content } : todo
+    );
+    setTodos(newTodos);
+  };
+
   return {
     todos,
     addTodo,
     removeTodoById,
+    modifyTodoById,
   };
 }
 
@@ -65,22 +77,35 @@ function TodoListItem({ todo }) {
   const cancelEditMode = () => {
     setEditmode(false);
   };
-  const commitEdit = () => {
-    setEditmode(false);
-  };
 
   const onSubmitEditForm = (e) => {
     e.preventDefault();
 
-    commitEdit();
+    const form = e.target;
+
+    form.content.value = form.content.value.trim();
+
+    if (form.content.value.length == 0) {
+      alert("할 일을 입력해주세요.");
+      form.content.focus();
+
+      return;
+    }
+    todosStatus.modifyTodoById(todo.id, form.content.value);
+    setEditmode(false);
   };
 
   return (
     <li>
       {todo.id} : {editMode || todo.content}
       {editMode && (
-        <form onSubmit={onSubmitEditForm} style={{display: "inline-block"}}>
-          <input type="text" placeholder="할 일" defaultValue={todo.content} />
+        <form onSubmit={onSubmitEditForm} style={{ display: "inline-block" }}>
+          <input
+            type="text"
+            placeholder="할 일"
+            name="content"
+            defaultValue={todo.content}
+          />
           <button className="ml-1 btn btn-outline">수정완료</button>
           <button className="ml-1 btn btn-outline" onClick={cancelEditMode}>
             수정취소
@@ -123,6 +148,7 @@ function TodoListPage() {
 
 function TodoWritePage() {
   const todosStatus = useTodosStatus();
+
   const onSubmit = (e) => {
     e.preventDefault();
     const form = e.target;
