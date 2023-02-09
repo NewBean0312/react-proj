@@ -21,7 +21,7 @@ const todosAtom = atom({
 
 function useTodosStatus() {
   const [todos, setTodos] = useRecoilState(todosAtom);
-  const lastTodoIdRef = useRef(todos[0].id);
+  const lastTodoIdRef = useRef(todos.length == 0 ? 0 : todos[0].id);
 
   const addTodo = (content) => {
     const id = ++lastTodoIdRef.current;
@@ -37,10 +37,41 @@ function useTodosStatus() {
     setTodos(newTodos);
   };
 
+  const findIndexById = (id) => todos.findIndex((todo) => todo.id == id);
+
+  const removeTodoById = (id) => {
+    const index = findIndexById(id);
+
+    if (index == -1) return;
+
+    const newTodos = todos.filter((_, _index) => index != _index);
+    setTodos(newTodos);
+  };
+
   return {
     todos,
     addTodo,
+    removeTodoById,
   };
+}
+
+function TodoListItem({ todo }) {
+  const todosStatus = useTodosStatus();
+
+  return (
+    <li>
+      {todo.id} : {todo.content}
+      <button
+        className="ml-2 btn btn-outline"
+        onClick={() =>
+          window.confirm(`${todo.id}번 할 일을 삭제하시겠습니까?`) &&
+          todosStatus.removeTodoById(todo.id)
+        }
+      >
+        삭제
+      </button>
+    </li>
+  );
 }
 
 function TodoListPage() {
@@ -52,9 +83,7 @@ function TodoListPage() {
 
       <ul>
         {todosStatus.todos.map((todo) => (
-          <li key={todo.id}>
-            {todo.id} : {todo.content}
-          </li>
+          <TodoListItem key={todo.id} todo={todo} />
         ))}
       </ul>
     </>
