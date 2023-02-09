@@ -10,7 +10,9 @@ import {
 } from "react-router-dom";
 
 function useTodosStatus() {
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState([
+    { id: 1, regDate: "2023-02-07 12:12:12", content: "안녕" },
+  ]);
 
   const addTodo = (content) => {
     const id = 1;
@@ -33,9 +35,19 @@ function useTodosStatus() {
 }
 
 function TodoListPage() {
+  const todosStatus = useTodosStatus();
+
   return (
     <>
       <h1>할 일 리스트</h1>
+
+      <ul>
+        {todosStatus.todos.map((todo) => (
+          <li key={todo.id}>
+            {todo.id} : {todo.content}
+          </li>
+        ))}
+      </ul>
     </>
   );
 }
