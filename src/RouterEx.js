@@ -56,7 +56,18 @@ function useTodosStatus() {
 }
 
 function TodoListItem({ todo }) {
+  const [editMode, setEditmode] = useState(false);
   const todosStatus = useTodosStatus();
+
+  const showEditMode = () => {
+    setEditmode(true);
+  };
+  const cancelEditMode = () => {
+    setEditmode(false);
+  };
+  const commitEditMode = () => {
+    setEditmode(false);
+  };
 
   return (
     <li>
@@ -70,6 +81,21 @@ function TodoListItem({ todo }) {
       >
         삭제
       </button>
+      {editMode || (
+        <button className="ml-1 btn btn-outline" onClick={showEditMode}>
+          수정
+        </button>
+      )}
+      {editMode && (
+        <button className="ml-1 btn btn-outline" onClick={cancelEditMode}>
+          수정취소
+        </button>
+      )}
+      {editMode && (
+        <button className="ml-1 btn btn-outline" onClick={commitEditMode}>
+          수정완료
+        </button>
+      )}
     </li>
   );
 }
