@@ -53,7 +53,9 @@ function useTodosStatus() {
 
     if (index == -1) return;
 
-    const newTodos = todos.filter((_, _index) => index != _index);
+    const newTodos = produce(todos, (draft) => {
+      draft.splice(index, 1);
+    });
     setTodos(newTodos);
   };
 
