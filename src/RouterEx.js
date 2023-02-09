@@ -8,14 +8,22 @@ import {
   useParams,
   useNavigate,
 } from "react-router-dom";
+import { atom, useRecoilState } from "recoil";
+
+const todosAtom = atom({
+  key: "recoil/todosAtom",
+  default: [
+    { id: 3, regDate: "2023-02-07 12:12:12", content: "운동" },
+    { id: 2, regDate: "2022-02-07 12:12:12", content: "요리" },
+    { id: 1, regDate: "2021-02-07 12:12:12", content: "공부" },
+  ]
+})
 
 function useTodosStatus() {
-  const [todos, setTodos] = useState([
-    { id: 1, regDate: "2023-02-07 12:12:12", content: "안녕" },
-  ]);
+  const [todos, setTodos] = useRecoilState(todosAtom);
 
   const addTodo = (content) => {
-    const id = 1;
+    const id = 4;
     const regDate = "2023-02-07 12:12:12";
 
     const newTodo = {
@@ -65,11 +73,11 @@ function TodoWritePage() {
 
       return;
     }
-
+    todosStatus.addTodo(form.content.value);
+    
     form.content.value = "";
     form.content.focus();
 
-    todosStatus.addTodo(form.content.value);
   };
 
   return (
