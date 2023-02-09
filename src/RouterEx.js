@@ -39,6 +39,14 @@ function useTodosStatus() {
 
   const findIndexById = (id) => todos.findIndex((todo) => todo.id == id);
 
+  const findTodoById = (id) => {
+    const index = findIndexById(id);
+
+    if (index == -1) return;
+
+    return todos[index];
+  };
+
   const removeTodoById = (id) => {
     const index = findIndexById(id);
 
@@ -64,54 +72,17 @@ function useTodosStatus() {
     addTodo,
     removeTodoById,
     modifyTodoById,
+    findTodoById,
   };
 }
 
 function TodoListItem({ todo }) {
-  const [editMode, setEditmode] = useState(false);
   const todosStatus = useTodosStatus();
-
-  const showEditMode = () => {
-    setEditmode(true);
-  };
-  const cancelEditMode = () => {
-    setEditmode(false);
-  };
-
-  const onSubmitEditForm = (e) => {
-    e.preventDefault();
-
-    const form = e.target;
-
-    form.content.value = form.content.value.trim();
-
-    if (form.content.value.length == 0) {
-      alert("할 일을 입력해주세요.");
-      form.content.focus();
-
-      return;
-    }
-    todosStatus.modifyTodoById(todo.id, form.content.value);
-    setEditmode(false);
-  };
 
   return (
     <li>
-      {todo.id} : {editMode || todo.content}
-      {editMode && (
-        <form onSubmit={onSubmitEditForm} style={{ display: "inline-block" }}>
-          <input
-            type="text"
-            placeholder="할 일"
-            name="content"
-            defaultValue={todo.content}
-          />
-          <button className="ml-1 btn btn-outline">수정완료</button>
-          <button className="ml-1 btn btn-outline" onClick={cancelEditMode}>
-            수정취소
-          </button>
-        </form>
-      )}
+      {todo.id} : {todo.content}&nbsp;/&nbsp;
+      <NavLink to={`/edit/${todo.id}`}>수정</NavLink>&nbsp;/&nbsp;
       <button
         className="ml-2 btn btn-outline"
         onClick={() =>
@@ -121,11 +92,6 @@ function TodoListItem({ todo }) {
       >
         삭제
       </button>
-      {editMode || (
-        <button className="ml-1 btn btn-outline" onClick={showEditMode}>
-          수정
-        </button>
-      )}
     </li>
   );
 }
@@ -151,7 +117,9 @@ function TodoWritePage() {
 
   const onSubmit = (e) => {
     e.preventDefault();
+
     const form = e.target;
+
     form.content.value = form.content.value.trim();
 
     if (form.content.value.length == 0) {
@@ -183,6 +151,54 @@ function TodoWritePage() {
   );
 }
 
+function TodoEditPage() {
+  const todosStatus = useTodosStatus();
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const todo = todosStatus.findTodoById(id);
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+
+    const form = e.target;
+
+    form.content.value = form.content.value.trim();
+
+    if (form.content.value.length == 0) {
+      alert("할 일을 입력해주세요.");
+      form.content.focus();
+
+      return;
+    }
+
+    todosStatus.modifyTodoById(todo.id, form.content.value);
+    navigate("/list", { replace: true });
+  };
+
+  return (
+    <>
+      <h1>할 일 수정</h1>
+      <form onSubmit={onSubmit}>
+        <input
+          type="text"
+          name="content"
+          placeholder="할 일을 입력해주세요."
+          className="input input-bordered mr-3"
+          defaultValue={todo.content}
+        />
+        <input type="submit" value="수정" className="input input-bordered" />
+        <button
+          className="ml-1 btn btn-outline"
+          onClick={() => navigate("/list")}
+        >
+          취소
+        </button>
+      </form>
+      <div>{todosStatus.todos.length}</div>
+    </>
+  );
+}
+
 export default function ReouterEx() {
   const location = useLocation();
 
@@ -208,6 +224,7 @@ export default function ReouterEx() {
       <Routes>
         <Route path="/list" element={<TodoListPage />} />
         <Route path="/write" element={<TodoWritePage />} />
+        <Route path="/edit/:id" element={<TodoEditPage />} />
         <Route path="*" element={<Navigate to="/write" />} />
       </Routes>
     </>
